@@ -5,6 +5,8 @@
  */
 package recipeapp;
 
+import gui.AppForm;
+
 /**
  *
  * @author Ayoze
@@ -15,7 +17,9 @@ public class RecipeApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        AppForm appForm=new AppForm();
+        appForm.setVisible(true);
+        appForm.setLocationRelativeTo(null);
     }
     
 }
