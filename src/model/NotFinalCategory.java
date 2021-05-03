@@ -8,6 +8,10 @@ import java.util.ArrayList;
  */
 public class NotFinalCategory {
     ArrayList<Category> subCategories;
+
+    public NotFinalCategory() {
+        this.subCategories = new ArrayList();
+    }
     
     void addSubCategories(Category category) {
         subCategories.add(category);
