@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * @author Ayoze, Cristina
  */
 public class Recipe {
-    int id;
     String name;
     String steps;
     double price;
@@ -17,8 +16,7 @@ public class Recipe {
     ArrayList<Ingredient> ingredients;
     ArrayList<FinalCategory> categories;
 
-    public Recipe(int id, String name, String steps, double price, LocalDate cookTime, ArrayList<Ingredient> ingredients, ArrayList<FinalCategory> categories) {
-        this.id = id;
+    public Recipe(String name, String steps, double price, LocalDate cookTime, ArrayList<Ingredient> ingredients, ArrayList<FinalCategory> categories) {
         this.name = name;
         this.steps = steps;
         this.price = price;
