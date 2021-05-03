@@ -11,13 +11,17 @@ public class AppForm extends javax.swing.JFrame {
     /**
      * Creates new form AppForm
      */
+    private CardLayout cardLayout = new CardLayout();
     
     public AppForm() {
         initComponents();
         
         super.setSize(1280, 720);
         
-        jPanelCard.removeAll();
+        cardLayout = (CardLayout) jPanelCard.getLayout();
+        jPanelCard.setLayout(cardLayout);
+        //jPanelCard.removeAll();
+        
     }
 
     /**
@@ -31,171 +35,325 @@ public class AppForm extends javax.swing.JFrame {
 
         jSplitPanel = new javax.swing.JSplitPane();
         jPanelCard = new javax.swing.JPanel();
-        jPanelSignIn = new javax.swing.JPanel();
-        jLabelUsername = new javax.swing.JLabel();
-        jTextFieldUsername = new javax.swing.JTextField();
-        jLabelPassword = new javax.swing.JLabel();
+        signInPanel = new javax.swing.JPanel();
+        usernameLabel = new javax.swing.JLabel();
+        usernameTextArea = new javax.swing.JTextField();
+        passwordLabel = new javax.swing.JLabel();
         jPasswordField = new javax.swing.JPasswordField();
+        jButton1 = new javax.swing.JButton();
         jPanelRecipe = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanelPrincipal = new javax.swing.JPanel();
-        jButtonIniciarSesion = new javax.swing.JButton();
-        jButtonCerrarSesion = new javax.swing.JButton();
-        jButtonCrearReceta = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        recipeTittlePanel = new javax.swing.JPanel();
+        recipeTittlePanelLabel = new javax.swing.JLabel();
+        recipeNameText = new javax.swing.JTextField();
+        stepsLabel = new javax.swing.JLabel();
+        stepsTextArea = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        cookTimeLabel = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
+        priceText = new javax.swing.JTextField();
+        ingredientsScrollPane = new javax.swing.JScrollPane();
+        ingredientsList = new javax.swing.JList<>();
+        ingredientsLabel = new javax.swing.JLabel();
+        categoriesScrollPane = new javax.swing.JScrollPane();
+        categoriesList = new javax.swing.JList<>();
+        categoriesLabel = new javax.swing.JLabel();
+        createRecipe = new javax.swing.JButton();
+        resetRecipe = new javax.swing.JButton();
+        buttonsPanel = new javax.swing.JPanel();
+        loginInButton = new javax.swing.JButton();
+        logOutButton = new javax.swing.JButton();
+        createRecipeButton = new javax.swing.JButton();
+        createMenuButton = new javax.swing.JButton();
+        searchRecipe = new javax.swing.JButton();
+        rateRecipesButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(1280, 720));
-        setMinimumSize(new java.awt.Dimension(1280, 720));
+        setMaximumSize(new java.awt.Dimension(1280, 846));
+        setMinimumSize(new java.awt.Dimension(1280, 846));
+        setPreferredSize(new java.awt.Dimension(1280, 848));
         setResizable(false);
-        setSize(new java.awt.Dimension(1280, 720));
+        setSize(new java.awt.Dimension(1280, 848));
 
-        jSplitPanel.setMaximumSize(new java.awt.Dimension(1280, 720));
-        jSplitPanel.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jSplitPanel.setMaximumSize(new java.awt.Dimension(1280, 848));
+        jSplitPanel.setMinimumSize(new java.awt.Dimension(1280, 848));
         jSplitPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
 
         jPanelCard.setBackground(new java.awt.Color(203, 241, 245));
         jPanelCard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jPanelCard.setMaximumSize(new java.awt.Dimension(1000, 720));
-        jPanelCard.setMinimumSize(new java.awt.Dimension(1000, 720));
-        jPanelCard.setPreferredSize(new java.awt.Dimension(1000, 720));
+        jPanelCard.setMaximumSize(new java.awt.Dimension(1000, 846));
+        jPanelCard.setMinimumSize(new java.awt.Dimension(1000, 846));
+        jPanelCard.setPreferredSize(new java.awt.Dimension(1000, 846));
         jPanelCard.setLayout(new java.awt.CardLayout());
 
-        jPanelSignIn.setBackground(new java.awt.Color(203, 241, 245));
+        signInPanel.setBackground(new java.awt.Color(203, 241, 245));
+        signInPanel.setPreferredSize(new java.awt.Dimension(1006, 848));
 
-        jLabelUsername.setText("USERNAME");
+        usernameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        usernameLabel.setText("USERNAME");
 
-        jLabelPassword.setText("PASSWORD");
+        passwordLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        passwordLabel.setText("PASSWORD");
 
-        javax.swing.GroupLayout jPanelSignInLayout = new javax.swing.GroupLayout(jPanelSignIn);
-        jPanelSignIn.setLayout(jPanelSignInLayout);
-        jPanelSignInLayout.setHorizontalGroup(
-            jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSignInLayout.createSequentialGroup()
-                .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelSignInLayout.createSequentialGroup()
+        jButton1.setText("Log in");
+
+        javax.swing.GroupLayout signInPanelLayout = new javax.swing.GroupLayout(signInPanel);
+        signInPanel.setLayout(signInPanelLayout);
+        signInPanelLayout.setHorizontalGroup(
+            signInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(usernameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(passwordLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(signInPanelLayout.createSequentialGroup()
+                .addGroup(signInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(signInPanelLayout.createSequentialGroup()
                         .addGap(419, 419, 419)
-                        .addComponent(jLabelUsername))
-                    .addGroup(jPanelSignInLayout.createSequentialGroup()
-                        .addGap(427, 427, 427)
-                        .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelPassword)
-                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(504, Short.MAX_VALUE))
+                        .addComponent(usernameTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(signInPanelLayout.createSequentialGroup()
+                        .addGap(419, 419, 419)
+                        .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(signInPanelLayout.createSequentialGroup()
+                        .addGap(464, 464, 464)
+                        .addComponent(jButton1)))
+                .addContainerGap(416, Short.MAX_VALUE))
         );
-        jPanelSignInLayout.setVerticalGroup(
-            jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelSignInLayout.createSequentialGroup()
-                .addGap(132, 132, 132)
-                .addComponent(jLabelUsername)
-                .addGap(38, 38, 38)
-                .addComponent(jLabelPassword)
-                .addGap(84, 84, 84)
-                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+        signInPanelLayout.setVerticalGroup(
+            signInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(signInPanelLayout.createSequentialGroup()
+                .addGap(155, 155, 155)
+                .addComponent(usernameLabel)
+                .addGap(18, 18, 18)
+                .addComponent(usernameTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(passwordLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(349, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(576, Short.MAX_VALUE))
         );
 
-        jPanelCard.add(jPanelSignIn, "card8");
+        jPanelCard.add(signInPanel, "logInCard");
 
-        jLabel1.setText("jLabel1");
+        jPanelRecipe.setBackground(new java.awt.Color(255, 255, 255));
+        jPanelRecipe.setPreferredSize(new java.awt.Dimension(710, 848));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        jLabel1.setText("Name:");
+
+        recipeTittlePanel.setBackground(new java.awt.Color(255, 153, 51));
+
+        recipeTittlePanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
+        recipeTittlePanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        recipeTittlePanelLabel.setText("Create your own recipe");
+
+        javax.swing.GroupLayout recipeTittlePanelLayout = new javax.swing.GroupLayout(recipeTittlePanel);
+        recipeTittlePanel.setLayout(recipeTittlePanelLayout);
+        recipeTittlePanelLayout.setHorizontalGroup(
+            recipeTittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(recipeTittlePanelLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        recipeTittlePanelLayout.setVerticalGroup(
+            recipeTittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(recipeTittlePanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+
+        stepsLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        stepsLabel.setText("Steps:");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        stepsTextArea.setViewportView(jTextArea1);
+
+        cookTimeLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        cookTimeLabel.setText("Cook time:");
+
+        priceLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        priceLabel.setText("Price:");
+
+        priceText.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                priceTextActionPerformed(evt);
+            }
+        });
+
+        ingredientsList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        ingredientsScrollPane.setViewportView(ingredientsList);
+
+        ingredientsLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        ingredientsLabel.setText("Ingredients:");
+
+        categoriesList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        categoriesScrollPane.setViewportView(categoriesList);
+
+        categoriesLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
+        categoriesLabel.setText("Categories:");
+
+        createRecipe.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        createRecipe.setText("Create");
+        createRecipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createRecipeActionPerformed(evt);
+            }
+        });
+
+        resetRecipe.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        resetRecipe.setText("Reset");
 
         javax.swing.GroupLayout jPanelRecipeLayout = new javax.swing.GroupLayout(jPanelRecipe);
         jPanelRecipe.setLayout(jPanelRecipeLayout);
         jPanelRecipeLayout.setHorizontalGroup(
             jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(recipeTittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanelRecipeLayout.createSequentialGroup()
-                .addGap(464, 464, 464)
-                .addComponent(jLabel1)
-                .addContainerGap(495, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cookTimeLabel)
+                    .addComponent(stepsLabel)
+                    .addComponent(jLabel1)
+                    .addComponent(priceLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(recipeNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stepsTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(priceText, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelRecipeLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(categoriesLabel)
+                    .addComponent(ingredientsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelRecipeLayout.createSequentialGroup()
+                        .addComponent(resetRecipe)
+                        .addGap(49, 49, 49)
+                        .addComponent(createRecipe))
+                    .addComponent(categoriesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(442, 442, 442))
         );
         jPanelRecipeLayout.setVerticalGroup(
             jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelRecipeLayout.createSequentialGroup()
-                .addGap(226, 226, 226)
-                .addComponent(jLabel1)
-                .addContainerGap(476, Short.MAX_VALUE))
+                .addComponent(recipeTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(recipeNameText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(stepsTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(stepsLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cookTimeLabel)
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(priceLabel)
+                    .addComponent(priceText, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ingredientsLabel)
+                    .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(categoriesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(categoriesLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(createRecipe)
+                    .addComponent(resetRecipe))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanelCard.add(jPanelRecipe, "card3");
+        jPanelCard.add(jPanelRecipe, "recipeCard");
 
         jSplitPanel.setLeftComponent(jPanelCard);
 
-        jPanelPrincipal.setBackground(new java.awt.Color(227, 253, 253));
+        buttonsPanel.setBackground(new java.awt.Color(227, 253, 253));
 
-        jButtonIniciarSesion.setBackground(new java.awt.Color(203, 241, 245));
-        jButtonIniciarSesion.setForeground(new java.awt.Color(102, 102, 102));
-        jButtonIniciarSesion.setText("Iniciar Sesión");
-        jButtonIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButtonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+        loginInButton.setBackground(new java.awt.Color(203, 241, 245));
+        loginInButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        loginInButton.setForeground(new java.awt.Color(102, 102, 102));
+        loginInButton.setText("Iniciar Sesión");
+        loginInButton.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        loginInButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonIniciarSesionActionPerformed(evt);
+                loginInButtonActionPerformed(evt);
             }
         });
 
-        jButtonCerrarSesion.setBackground(new java.awt.Color(203, 241, 245));
-        jButtonCerrarSesion.setForeground(new java.awt.Color(102, 102, 102));
-        jButtonCerrarSesion.setText("Cerrar Sesión");
+        logOutButton.setBackground(new java.awt.Color(203, 241, 245));
+        logOutButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        logOutButton.setForeground(new java.awt.Color(102, 102, 102));
+        logOutButton.setText("Cerrar Sesión");
 
-        jButtonCrearReceta.setBackground(new java.awt.Color(203, 241, 245));
-        jButtonCrearReceta.setForeground(new java.awt.Color(102, 102, 102));
-        jButtonCrearReceta.setText("Crear Receta");
-        jButtonCrearReceta.addActionListener(new java.awt.event.ActionListener() {
+        createRecipeButton.setBackground(new java.awt.Color(203, 241, 245));
+        createRecipeButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        createRecipeButton.setForeground(new java.awt.Color(102, 102, 102));
+        createRecipeButton.setText("Crear Receta");
+        createRecipeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCrearRecetaActionPerformed(evt);
+                createRecipeButtonActionPerformed(evt);
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(203, 241, 245));
-        jButton1.setForeground(new java.awt.Color(102, 102, 102));
-        jButton1.setText("Crear Menú");
+        createMenuButton.setBackground(new java.awt.Color(203, 241, 245));
+        createMenuButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        createMenuButton.setForeground(new java.awt.Color(102, 102, 102));
+        createMenuButton.setText("Crear Menú");
 
-        jButton2.setBackground(new java.awt.Color(203, 241, 245));
-        jButton2.setForeground(new java.awt.Color(102, 102, 102));
-        jButton2.setText("Buscar Recetas");
+        searchRecipe.setBackground(new java.awt.Color(203, 241, 245));
+        searchRecipe.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        searchRecipe.setForeground(new java.awt.Color(102, 102, 102));
+        searchRecipe.setText("Buscar Recetas");
 
-        jButton3.setBackground(new java.awt.Color(203, 241, 245));
-        jButton3.setForeground(new java.awt.Color(102, 102, 102));
-        jButton3.setText("Valorar Recetas");
+        rateRecipesButton.setBackground(new java.awt.Color(203, 241, 245));
+        rateRecipesButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
+        rateRecipesButton.setForeground(new java.awt.Color(102, 102, 102));
+        rateRecipesButton.setText("Valorar Recetas");
 
-        javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
-        jPanelPrincipal.setLayout(jPanelPrincipalLayout);
-        jPanelPrincipalLayout.setHorizontalGroup(
-            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                .addContainerGap(72, Short.MAX_VALUE)
-                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCrearReceta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonIniciarSesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(74, Short.MAX_VALUE))
+        javax.swing.GroupLayout buttonsPanelLayout = new javax.swing.GroupLayout(buttonsPanel);
+        buttonsPanel.setLayout(buttonsPanelLayout);
+        buttonsPanelLayout.setHorizontalGroup(
+            buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonsPanelLayout.createSequentialGroup()
+                .addContainerGap(77, Short.MAX_VALUE)
+                .addGroup(buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(searchRecipe, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(createMenuButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(createRecipeButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(loginInButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rateRecipesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(logOutButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
-        jPanelPrincipalLayout.setVerticalGroup(
-            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
-                .addContainerGap(42, Short.MAX_VALUE)
-                .addComponent(jButtonIniciarSesion)
+        buttonsPanelLayout.setVerticalGroup(
+            buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(buttonsPanelLayout.createSequentialGroup()
+                .addContainerGap(251, Short.MAX_VALUE)
+                .addComponent(loginInButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCrearReceta)
+                .addComponent(createRecipeButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(createMenuButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(searchRecipe)
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(rateRecipesButton)
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCerrarSesion)
+                .addComponent(logOutButton)
                 .addGap(394, 394, 394))
         );
 
-        jSplitPanel.setRightComponent(jPanelPrincipal);
+        jSplitPanel.setRightComponent(buttonsPanel);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -207,23 +365,27 @@ public class AppForm extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jSplitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 205, Short.MAX_VALUE))
+            .addComponent(jSplitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 899, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
-        super.remove(jPanelRecipe);
-        jPanelCard.add(jPanelSignIn);        
-    }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
+    private void loginInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginInButtonActionPerformed
+        cardLayout.show(jPanelCard,"logInCard");
+    }//GEN-LAST:event_loginInButtonActionPerformed
 
-    private void jButtonCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearRecetaActionPerformed
-        super.remove(jPanelSignIn);
-        jPanelCard.add(jPanelRecipe);
-    }//GEN-LAST:event_jButtonCrearRecetaActionPerformed
+    private void createRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeButtonActionPerformed
+        cardLayout.show(jPanelCard, "recipeCard");
+    }//GEN-LAST:event_createRecipeButtonActionPerformed
+
+    private void priceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_priceTextActionPerformed
+
+    private void createRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createRecipeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -261,21 +423,39 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JLabel categoriesLabel;
+    private javax.swing.JList<String> categoriesList;
+    private javax.swing.JScrollPane categoriesScrollPane;
+    private javax.swing.JLabel cookTimeLabel;
+    private javax.swing.JButton createMenuButton;
+    private javax.swing.JButton createRecipe;
+    private javax.swing.JButton createRecipeButton;
+    private javax.swing.JLabel ingredientsLabel;
+    private javax.swing.JList<String> ingredientsList;
+    private javax.swing.JScrollPane ingredientsScrollPane;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonCerrarSesion;
-    private javax.swing.JButton jButtonCrearReceta;
-    private javax.swing.JButton jButtonIniciarSesion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelPassword;
-    private javax.swing.JLabel jLabelUsername;
     private javax.swing.JPanel jPanelCard;
-    private javax.swing.JPanel jPanelPrincipal;
     private javax.swing.JPanel jPanelRecipe;
-    private javax.swing.JPanel jPanelSignIn;
     private javax.swing.JPasswordField jPasswordField;
     private javax.swing.JSplitPane jSplitPanel;
-    private javax.swing.JTextField jTextFieldUsername;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton logOutButton;
+    private javax.swing.JButton loginInButton;
+    private javax.swing.JLabel passwordLabel;
+    private javax.swing.JLabel priceLabel;
+    private javax.swing.JTextField priceText;
+    private javax.swing.JButton rateRecipesButton;
+    private javax.swing.JTextField recipeNameText;
+    private javax.swing.JPanel recipeTittlePanel;
+    private javax.swing.JLabel recipeTittlePanelLabel;
+    private javax.swing.JButton resetRecipe;
+    private javax.swing.JButton searchRecipe;
+    private javax.swing.JPanel signInPanel;
+    private javax.swing.JLabel stepsLabel;
+    private javax.swing.JScrollPane stepsTextArea;
+    private javax.swing.JLabel usernameLabel;
+    private javax.swing.JTextField usernameTextArea;
     // End of variables declaration//GEN-END:variables
 }
