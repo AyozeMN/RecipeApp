@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class FinalCategory extends Category {
     ArrayList<Ingredient> ingredients;
+    ArrayList<Recipe> recipes;
     
     void addIngredient(Ingredient ingredient) {
         ingredients.add(ingredient);

@@ -1,5 +1,7 @@
 package gui;
 
+import java.awt.CardLayout;
+
 /**
  *
  * @author Ayoze, Cristina
@@ -9,8 +11,13 @@ public class AppForm extends javax.swing.JFrame {
     /**
      * Creates new form AppForm
      */
+    
     public AppForm() {
         initComponents();
+        
+        super.setSize(1280, 720);
+        
+        jPanelCard.removeAll();
     }
 
     /**
@@ -22,27 +29,41 @@ public class AppForm extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPanel = new javax.swing.JSplitPane();
+        jPanelCard = new javax.swing.JPanel();
         jPanelSignIn = new javax.swing.JPanel();
-        jTextFieldUsername = new javax.swing.JTextField();
-        jPasswordField = new javax.swing.JPasswordField();
-        jButtonSignIn = new javax.swing.JButton();
         jLabelUsername = new javax.swing.JLabel();
+        jTextFieldUsername = new javax.swing.JTextField();
         jLabelPassword = new javax.swing.JLabel();
+        jPasswordField = new javax.swing.JPasswordField();
+        jPanelRecipe = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanelPrincipal = new javax.swing.JPanel();
+        jButtonIniciarSesion = new javax.swing.JButton();
+        jButtonCerrarSesion = new javax.swing.JButton();
+        jButtonCrearReceta = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 720));
         setMinimumSize(new java.awt.Dimension(1280, 720));
-        setPreferredSize(new java.awt.Dimension(1280, 720));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 720));
 
-        jTextFieldUsername.setMinimumSize(new java.awt.Dimension(100, 25));
-        jTextFieldUsername.setPreferredSize(new java.awt.Dimension(100, 25));
+        jSplitPanel.setMaximumSize(new java.awt.Dimension(1280, 720));
+        jSplitPanel.setMinimumSize(new java.awt.Dimension(1280, 720));
+        jSplitPanel.setPreferredSize(new java.awt.Dimension(1280, 720));
 
-        jPasswordField.setMinimumSize(new java.awt.Dimension(100, 25));
-        jPasswordField.setPreferredSize(new java.awt.Dimension(100, 25));
+        jPanelCard.setBackground(new java.awt.Color(203, 241, 245));
+        jPanelCard.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jPanelCard.setMaximumSize(new java.awt.Dimension(1000, 720));
+        jPanelCard.setMinimumSize(new java.awt.Dimension(1000, 720));
+        jPanelCard.setPreferredSize(new java.awt.Dimension(1000, 720));
+        jPanelCard.setLayout(new java.awt.CardLayout());
 
-        jButtonSignIn.setText("Sign In");
+        jPanelSignIn.setBackground(new java.awt.Color(203, 241, 245));
 
         jLabelUsername.setText("USERNAME");
 
@@ -55,56 +76,154 @@ public class AppForm extends javax.swing.JFrame {
             .addGroup(jPanelSignInLayout.createSequentialGroup()
                 .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanelSignInLayout.createSequentialGroup()
-                        .addGap(360, 360, 360)
-                        .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jPasswordField, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(jPanelSignInLayout.createSequentialGroup()
-                                .addGap(17, 17, 17)
-                                .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelUsername)
-                                    .addComponent(jLabelPassword)))))
+                        .addGap(419, 419, 419)
+                        .addComponent(jLabelUsername))
                     .addGroup(jPanelSignInLayout.createSequentialGroup()
-                        .addGap(377, 377, 377)
-                        .addComponent(jButtonSignIn)))
-                .addContainerGap(379, Short.MAX_VALUE))
+                        .addGap(427, 427, 427)
+                        .addGroup(jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelPassword)
+                            .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(504, Short.MAX_VALUE))
         );
         jPanelSignInLayout.setVerticalGroup(
             jPanelSignInLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelSignInLayout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(132, 132, 132)
                 .addComponent(jLabelUsername)
-                .addGap(18, 18, 18)
-                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24)
+                .addGap(38, 38, 38)
                 .addComponent(jLabelPassword)
-                .addGap(18, 18, 18)
+                .addGap(84, 84, 84)
+                .addComponent(jTextFieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
                 .addComponent(jPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButtonSignIn)
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addContainerGap(349, Short.MAX_VALUE))
         );
+
+        jPanelCard.add(jPanelSignIn, "card8");
+
+        jLabel1.setText("jLabel1");
+
+        javax.swing.GroupLayout jPanelRecipeLayout = new javax.swing.GroupLayout(jPanelRecipe);
+        jPanelRecipe.setLayout(jPanelRecipeLayout);
+        jPanelRecipeLayout.setHorizontalGroup(
+            jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRecipeLayout.createSequentialGroup()
+                .addGap(464, 464, 464)
+                .addComponent(jLabel1)
+                .addContainerGap(495, Short.MAX_VALUE))
+        );
+        jPanelRecipeLayout.setVerticalGroup(
+            jPanelRecipeLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelRecipeLayout.createSequentialGroup()
+                .addGap(226, 226, 226)
+                .addComponent(jLabel1)
+                .addContainerGap(476, Short.MAX_VALUE))
+        );
+
+        jPanelCard.add(jPanelRecipe, "card3");
+
+        jSplitPanel.setLeftComponent(jPanelCard);
+
+        jPanelPrincipal.setBackground(new java.awt.Color(227, 253, 253));
+
+        jButtonIniciarSesion.setBackground(new java.awt.Color(203, 241, 245));
+        jButtonIniciarSesion.setForeground(new java.awt.Color(102, 102, 102));
+        jButtonIniciarSesion.setText("Iniciar Sesión");
+        jButtonIniciarSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButtonIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonIniciarSesionActionPerformed(evt);
+            }
+        });
+
+        jButtonCerrarSesion.setBackground(new java.awt.Color(203, 241, 245));
+        jButtonCerrarSesion.setForeground(new java.awt.Color(102, 102, 102));
+        jButtonCerrarSesion.setText("Cerrar Sesión");
+
+        jButtonCrearReceta.setBackground(new java.awt.Color(203, 241, 245));
+        jButtonCrearReceta.setForeground(new java.awt.Color(102, 102, 102));
+        jButtonCrearReceta.setText("Crear Receta");
+        jButtonCrearReceta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCrearRecetaActionPerformed(evt);
+            }
+        });
+
+        jButton1.setBackground(new java.awt.Color(203, 241, 245));
+        jButton1.setForeground(new java.awt.Color(102, 102, 102));
+        jButton1.setText("Crear Menú");
+
+        jButton2.setBackground(new java.awt.Color(203, 241, 245));
+        jButton2.setForeground(new java.awt.Color(102, 102, 102));
+        jButton2.setText("Buscar Recetas");
+
+        jButton3.setBackground(new java.awt.Color(203, 241, 245));
+        jButton3.setForeground(new java.awt.Color(102, 102, 102));
+        jButton3.setText("Valorar Recetas");
+
+        javax.swing.GroupLayout jPanelPrincipalLayout = new javax.swing.GroupLayout(jPanelPrincipal);
+        jPanelPrincipal.setLayout(jPanelPrincipalLayout);
+        jPanelPrincipalLayout.setHorizontalGroup(
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(72, Short.MAX_VALUE)
+                .addGroup(jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCrearReceta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonIniciarSesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButtonCerrarSesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
+        );
+        jPanelPrincipalLayout.setVerticalGroup(
+            jPanelPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelPrincipalLayout.createSequentialGroup()
+                .addContainerGap(42, Short.MAX_VALUE)
+                .addComponent(jButtonIniciarSesion)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonCrearReceta)
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addGap(18, 18, 18)
+                .addComponent(jButton3)
+                .addGap(18, 18, 18)
+                .addComponent(jButtonCerrarSesion)
+                .addGap(394, 394, 394))
+        );
+
+        jSplitPanel.setRightComponent(jPanelPrincipal);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanelSignIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jSplitPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 205, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonIniciarSesionActionPerformed
+        super.remove(jPanelRecipe);
+        jPanelCard.add(jPanelSignIn);        
+    }//GEN-LAST:event_jButtonIniciarSesionActionPerformed
+
+    private void jButtonCrearRecetaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCrearRecetaActionPerformed
+        super.remove(jPanelSignIn);
+        jPanelCard.add(jPanelRecipe);
+    }//GEN-LAST:event_jButtonCrearRecetaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,11 +261,21 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonSignIn;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonCerrarSesion;
+    private javax.swing.JButton jButtonCrearReceta;
+    private javax.swing.JButton jButtonIniciarSesion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelPassword;
     private javax.swing.JLabel jLabelUsername;
+    private javax.swing.JPanel jPanelCard;
+    private javax.swing.JPanel jPanelPrincipal;
+    private javax.swing.JPanel jPanelRecipe;
     private javax.swing.JPanel jPanelSignIn;
     private javax.swing.JPasswordField jPasswordField;
+    private javax.swing.JSplitPane jSplitPanel;
     private javax.swing.JTextField jTextFieldUsername;
     // End of variables declaration//GEN-END:variables
 }

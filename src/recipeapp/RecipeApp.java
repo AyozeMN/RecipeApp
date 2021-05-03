@@ -6,6 +6,7 @@
 package recipeapp;
 
 import gui.AppForm;
+import javax.swing.JPanel;
 
 /**
  *
@@ -18,6 +19,7 @@ public class RecipeApp {
      */
     public static void main(String[] args) {
         AppForm appForm=new AppForm();
+        
         appForm.setVisible(true);
         appForm.setLocationRelativeTo(null);
     }
