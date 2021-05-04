@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import model.Ingredient;
 
 
-public class IngrediensFile {
+public class IngredientsFile {
 
     public void loadFromFile(ArrayList<Ingredient> ingredients) {
         ingredients.clear();
@@ -20,7 +20,7 @@ public class IngrediensFile {
                 ingredients.add(new Ingredient(data[0],Double.parseDouble(data[1])));
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(IngrediensFile.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IngredientsFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

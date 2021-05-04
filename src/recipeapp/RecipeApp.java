@@ -1,7 +1,8 @@
 
 package recipeapp;
 
-import file.IngrediensFile;
+import file.CategoriesFile;
+import file.IngredientsFile;
 import gui.AppForm;
 import java.util.ArrayList;
 import model.Ingredient;
@@ -14,9 +15,13 @@ public class RecipeApp {
         appForm.setVisible(true);
         appForm.setLocationRelativeTo(null);
         
-        IngrediensFile file = new IngrediensFile();
+        IngredientsFile ingredientsFile = new IngredientsFile();
+        CategoriesFile categoriesFile = new CategoriesFile();
         ArrayList<Ingredient> ingredients = new ArrayList();
-        file.loadFromFile(ingredients);
+        
+        appForm.ingredientsFile = ingredientsFile;
+        appForm.categoriesFile = categoriesFile;
+        
         for (Ingredient ingredient : ingredients) {
             System.out.println(ingredient.toString());
         }

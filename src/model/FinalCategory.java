@@ -23,4 +23,11 @@ public class FinalCategory extends Category {
     void addRecipe(Recipe recipe) {
         recipes.add(recipe);
     }
+
+    @Override
+    public String toString() {
+        return super.name;
+    }
+    
+    
 }

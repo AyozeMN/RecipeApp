@@ -19,10 +19,10 @@ public class CategoriesFile {
         try {
             Scanner sc = new Scanner(new File("Categories.txt"));
             while(sc.hasNextLine()){
-                categories.add(new FinalCategory(sc.next()));
+                categories.add(new FinalCategory(sc.nextLine()));
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(IngrediensFile.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(IngredientsFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

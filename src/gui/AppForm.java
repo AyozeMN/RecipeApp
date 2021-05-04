@@ -1,6 +1,13 @@
 package gui;
 
+import file.CategoriesFile;
+import file.IngredientsFile;
 import java.awt.CardLayout;
+import java.util.ArrayList;
+import javax.swing.DefaultListModel;
+import javax.swing.ListSelectionModel;
+import model.FinalCategory;
+import model.Ingredient;
 
 /**
  *
@@ -8,13 +15,43 @@ import java.awt.CardLayout;
  */
 public class AppForm extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AppForm
-     */
+    public IngredientsFile ingredientsFile = new IngredientsFile();
+    public CategoriesFile categoriesFile = new CategoriesFile();
+    
+    
     private CardLayout cardLayout = new CardLayout();
+
+    private ArrayList<Ingredient>ingredients = new ArrayList();
+    private ArrayList<FinalCategory>categories = new ArrayList();
+    
+    private DefaultListModel ingredientsModel = new DefaultListModel();
+    private DefaultListModel categoriesModel = new DefaultListModel();
+    
+    private void initIngredientsList(){
+        for (Ingredient ingredient : ingredients) {
+            ingredientsModel.addElement(ingredient);
+        }
+    }
+    private void initCategoriesList(){
+        for (FinalCategory category : categories) {
+            categoriesModel.addElement(category);
+        }
+    }
     
     public AppForm() {
         initComponents();
+
+        ingredientsList.setModel(ingredientsModel);
+        categoriesList.setModel(categoriesModel);
+        
+        ingredientsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        categoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        ingredientsFile.loadFromFile(ingredients);
+        categoriesFile.loadFromFile(categories);
+
+        initIngredientsList();
+        initCategoriesList();
         
         super.setSize(1280, 720);
         
@@ -81,7 +118,6 @@ public class AppForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMaximumSize(new java.awt.Dimension(1280, 846));
         setMinimumSize(new java.awt.Dimension(1280, 846));
-        setPreferredSize(new java.awt.Dimension(1280, 848));
         setResizable(false);
         setSize(new java.awt.Dimension(1280, 848));
 
@@ -153,13 +189,10 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(logInTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(logInPanelLayout.createSequentialGroup()
+                .addGap(419, 419, 419)
                 .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(logInPanelLayout.createSequentialGroup()
-                        .addGap(419, 419, 419)
-                        .addComponent(usernameTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(logInPanelLayout.createSequentialGroup()
-                        .addGap(419, 419, 419)
-                        .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(usernameTextArea, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInPanelLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -253,11 +286,6 @@ public class AppForm extends javax.swing.JFrame {
 
         ingredientsList.setBackground(new java.awt.Color(35, 41, 49));
         ingredientsList.setForeground(new java.awt.Color(238, 238, 238));
-        ingredientsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         ingredientsScrollPane.setViewportView(ingredientsList);
 
         categoriesLabel.setBackground(new java.awt.Color(238, 238, 238));
@@ -315,7 +343,7 @@ public class AppForm extends javax.swing.JFrame {
                         .addComponent(categoriesScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(cookTimeText, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(priceText, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 184, Short.MAX_VALUE)))
+                        .addComponent(priceText, javax.swing.GroupLayout.Alignment.LEADING)))
                 .addContainerGap(294, Short.MAX_VALUE))
         );
         recipePanelLayout.setVerticalGroup(
@@ -351,7 +379,7 @@ public class AppForm extends javax.swing.JFrame {
                             .addComponent(resetRecipe)
                             .addComponent(createRecipe)))
                     .addComponent(categoriesLabel))
-                .addContainerGap(64, Short.MAX_VALUE))
+                .addContainerGap(96, Short.MAX_VALUE))
         );
 
         jPanelCard.add(recipePanel, "recipeCard");

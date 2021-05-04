@@ -1,6 +1,5 @@
 package model;
 
-import java.util.ArrayList;
 
 public class Ingredient {
     private String name;
@@ -13,8 +12,17 @@ public class Ingredient {
 
     @Override
     public String toString() {
-        return "Ingredient{" + "name=" + name + ", price=" + price + '}';
+        return name + ": " + price;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    
     
 }
