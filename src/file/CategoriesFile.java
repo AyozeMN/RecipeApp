@@ -11,7 +11,6 @@ import model.FinalCategory;
 public class CategoriesFile {
 
     public void saveToFile(Object obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public void loadFromFile(ArrayList<FinalCategory> categories) {
