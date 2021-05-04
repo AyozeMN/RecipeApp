@@ -10,7 +10,8 @@ public class FinalCategory extends Category {
     ArrayList<Ingredient> ingredients;
     ArrayList<Recipe> recipes;
 
-    public FinalCategory() {
+    public FinalCategory(String name) {
+        super(name);
         this.ingredients = new ArrayList();
         this.recipes = new ArrayList();
     }

@@ -2,21 +2,19 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Ayoze, Cristina
- */
 public class Ingredient {
-    int id;
-    String name;
-    double price;
-    ArrayList<FinalCategory> categories;
+    private String name;
+    private double price;
 
-    public Ingredient(int id, String name, double price, ArrayList<FinalCategory> categories) {
-        this.id = id;
+    public Ingredient(String name, double price) {
         this.name = name;
         this.price = price;
-        this.categories = categories;
     }
+
+    @Override
+    public String toString() {
+        return "Ingredient{" + "name=" + name + ", price=" + price + '}';
+    }
+
     
 }

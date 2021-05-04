@@ -6,10 +6,11 @@ import java.util.ArrayList;
  *
  * @author Ayoze, Cristina
  */
-public class NotFinalCategory {
+public class NotFinalCategory extends Category{
     ArrayList<Category> subCategories;
 
-    public NotFinalCategory() {
+    public NotFinalCategory(String name) {
+        super(name);
         this.subCategories = new ArrayList();
     }
     

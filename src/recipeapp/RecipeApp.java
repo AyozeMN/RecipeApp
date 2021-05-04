@@ -1,27 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package recipeapp;
 
+import file.IngrediensFile;
 import gui.AppForm;
-import javax.swing.JPanel;
+import java.util.ArrayList;
+import model.Ingredient;
 
-/**
- *
- * @author Ayoze
- */
+
 public class RecipeApp {
-
-    /**
-     * @param args the command line arguments
-     */
+    
     public static void main(String[] args) {
-        AppForm appForm=new AppForm();
-        
+        AppForm appForm = new AppForm();
         appForm.setVisible(true);
         appForm.setLocationRelativeTo(null);
+        
+        IngrediensFile file = new IngrediensFile();
+        ArrayList<Ingredient> ingredients = new ArrayList();
+        file.loadFromFile(ingredients);
+        for (Ingredient ingredient : ingredients) {
+            System.out.println(ingredient.toString());
+        }
     }
     
 }
