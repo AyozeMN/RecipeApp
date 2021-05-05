@@ -3,9 +3,6 @@
 <Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[1280, 846]"/>
-    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[1280, 846]"/>
     </Property>
@@ -937,7 +934,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="createMenuTittlePanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
@@ -1129,7 +1126,7 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="78" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="1" max="-2" attributes="0">
                           <Component id="searchRecipeButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="createMenuButton" alignment="0" max="32767" attributes="0"/>
@@ -1137,16 +1134,16 @@
                           <Component id="logInButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="rateRecipesButton" alignment="0" max="32767" attributes="0"/>
                           <Component id="logOutButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="myReipesButton" alignment="0" max="32767" attributes="0"/>
+                          <Component id="myRecipesButton" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="79" max="32767" attributes="0"/>
+                      <EmptySpace pref="78" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="200" max="32767" attributes="0"/>
+                      <EmptySpace pref="151" max="32767" attributes="0"/>
                       <Component id="logInButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="createRecipeButton" min="-2" max="-2" attributes="0"/>
@@ -1157,9 +1154,9 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="rateRecipesButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="logOutButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="myRecipesButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="myReipesButton" min="-2" max="-2" attributes="0"/>
+                      <Component id="logOutButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="349" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1269,7 +1266,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateRecipesButtonActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="myReipesButton">
+            <Component class="javax.swing.JButton" name="myRecipesButton">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="a3" green="cc" red="4e" type="rgb"/>
@@ -1284,7 +1281,7 @@
                 <Property name="horizontalTextPosition" type="int" value="0"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myReipesButtonActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="myRecipesButtonActionPerformed"/>
               </Events>
             </Component>
           </SubComponents>

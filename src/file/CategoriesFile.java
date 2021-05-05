@@ -21,7 +21,7 @@ public class CategoriesFile {
                 categories.add(new FinalCategory(sc.nextLine()));
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(IngredientsFile.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoriesFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
