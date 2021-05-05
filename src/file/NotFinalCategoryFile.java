@@ -9,10 +9,6 @@ import java.util.logging.Logger;
 import model.FinalCategory;
 import model.NotFinalCategory;
 
-/**
- *
- * @author Ayoze
- */
 public class NotFinalCategoryFile {
     public void saveToFile(Object obj) {
     }
@@ -29,9 +25,12 @@ public class NotFinalCategoryFile {
                 for (String subCat : dataSub) {
                     categories.get(idx).addSubCategories(new FinalCategory(subCat));
                 }
+                idx++;
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(NotFinalCategoryFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    
 }

@@ -3,6 +3,7 @@ package gui;
 import file.CategoriesFile;
 import file.IngredientsFile;
 import file.NotFinalCategoryFile;
+import file.UsersFile;
 import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
 import model.Category;
+import model.Client;
 import model.FinalCategory;
 import model.Ingredient;
 import model.Menu;
@@ -22,8 +24,9 @@ public class AppForm extends javax.swing.JFrame {
     public IngredientsFile ingredientsFile = new IngredientsFile();
     public CategoriesFile categoriesFile = new CategoriesFile();
     public NotFinalCategoryFile notFinalCategoryFile = new NotFinalCategoryFile();
+    public UsersFile usersFile = new UsersFile();
     
-    public ArrayList<User>users = new ArrayList();
+    //public ArrayList<User>users = new ArrayList();
     private User loggedUser;
     
     private CardLayout cardLayout = new CardLayout();
@@ -31,6 +34,7 @@ public class AppForm extends javax.swing.JFrame {
     private ArrayList<Ingredient>ingredients;
     private ArrayList<FinalCategory>categories;
     private ArrayList<NotFinalCategory>notFinalCategories;
+    private ArrayList<Client>clients;
     
     private final DefaultListModel ingredientsModel = new DefaultListModel();
     private final DefaultListModel categoriesModel = new DefaultListModel();
@@ -39,7 +43,7 @@ public class AppForm extends javax.swing.JFrame {
     private final DefaultListModel myRecipesModel = new DefaultListModel();
     private final DefaultListModel myMenusModel = new DefaultListModel();
     private final DefaultComboBoxModel filterModel = new DefaultComboBoxModel();
-    
+     
     private void initIngredientsList(){
         for (Ingredient ingredient : ingredients) {
             ingredientsModel.addElement(ingredient);
@@ -80,6 +84,8 @@ public class AppForm extends javax.swing.JFrame {
         this.ingredients = new ArrayList();
         this.categories = new ArrayList();
         this.notFinalCategories = new ArrayList();
+        this.clients = new ArrayList();
+        
         initComponents();
 
         ingredientsList.setModel(ingredientsModel);
@@ -94,6 +100,7 @@ public class AppForm extends javax.swing.JFrame {
         categoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         myRecipesToAddToMenuList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
+        usersFile.loadFromFile(clients);
         ingredientsFile.loadFromFile(ingredients);
         categoriesFile.loadFromFile(categories);
         notFinalCategoryFile.loadFromFile(notFinalCategories);
@@ -102,6 +109,7 @@ public class AppForm extends javax.swing.JFrame {
         initFinalCategoriesList();
         initNotFinalCategoriesList();
         initFiltersComboBox();
+        
         super.setSize(1280, 720);
         
         cardLayout = (CardLayout) jPanelCard.getLayout();
@@ -903,15 +911,15 @@ public class AppForm extends javax.swing.JFrame {
         //Botones del menú si la sesión se inicia
         String userName = usernameTextArea.getText();
         String password = String.valueOf(passwordField.getPassword());
-        System.out.println(password);
         logIn(userName, password);
     }//GEN-LAST:event_logInUserButtonActionPerformed
 
     private void logIn(String userName, String password) {
-        for (User user : users) {
-            if(user.getUserName().equals(userName) && user.getPassword().equals(password)){
-                if(user.getUserRole() == 0) { //client
-                    loggedUser = user;
+        for (Client client : clients) {
+            if(client.getUserName().equals(userName) && client.getPassword().equals(password)){
+                System.out.println("coincide");
+                if(client.getUserRole() == 0) { //client
+                    loggedUser = client;
                     logInButton.setEnabled(false);
                     createRecipeButton.setEnabled(true);
                     createMenuButton.setEnabled(true);
@@ -926,6 +934,8 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
+        loggedUser = null;
+        
         //Botones del menú si la sesión se cierra
         logInButton.setEnabled(true);
         createRecipeButton.setEnabled(false);
@@ -937,6 +947,8 @@ public class AppForm extends javax.swing.JFrame {
         
         //Volvemos al panel de iniciar sesión
         cardLayout.show(jPanelCard, "logInCard");
+        
+        
     }//GEN-LAST:event_logOutButtonActionPerformed
 
     private void myRecipesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myRecipesButtonActionPerformed
@@ -962,8 +974,8 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void getRecipesByFilter(String recipeName, FinalCategory fC) {
-        for (User user : users) {
-            for (Recipe recipe : user.getRecipes()) {
+        for (Client client : clients) {
+            for (Recipe recipe : client.getRecipes()) {
                 if(recipe.getName().contains(recipeName) && recipe.containsCategory(fC.getName())){
                     this.recipeFoundModel.addElement(recipe);
                 }

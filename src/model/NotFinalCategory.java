@@ -2,10 +2,6 @@ package model;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Ayoze, Cristina
- */
 public class NotFinalCategory extends Category{
     ArrayList<FinalCategory> subCategories;
 
@@ -26,4 +22,6 @@ public class NotFinalCategory extends Category{
     public String toString() {
         return super.name;
     }
+    
+    
 }

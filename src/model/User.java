@@ -1,12 +1,7 @@
 package model;
 
-import java.awt.Image;
 import java.util.ArrayList;
 
-/**
- *
- * @author Ayoze, Cristina
- */
 public abstract class User {
     String userName;
     String password;
@@ -69,5 +64,6 @@ public abstract class User {
     public int getUserRole() {
         return userRole;
     }
+    
     
 }

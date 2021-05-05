@@ -12,7 +12,6 @@ public class Menu {
         this.recipes = new ArrayList();
     }
 
-
     public ArrayList<Recipe> getRecipes() {
         return recipes;
     }
@@ -29,7 +28,6 @@ public class Menu {
     public String toString() {
         return "Menu " + name + ": \n" + recipes;
     }
-    
     
     
 }

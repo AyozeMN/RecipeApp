@@ -62,4 +62,5 @@ public class Recipe {
         return name + ", steps=" + steps + ", price=" + price + ", cookTime=" + cookTime + ", valorations=" + valorations + ", ingredients=" + ingredients + ", categories=" + categories + "\n";
     }
     
+    
 }

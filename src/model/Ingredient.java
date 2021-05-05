@@ -1,6 +1,5 @@
 package model;
 
-
 public class Ingredient {
     private String name;
     private double price;
@@ -23,6 +22,5 @@ public class Ingredient {
         return price;
     }
 
-    
     
 }
