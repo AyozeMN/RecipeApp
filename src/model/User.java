@@ -37,6 +37,10 @@ public abstract class User {
     public void addMenu(Menu menu){
         menus.add(menu);
     }
+    
+    public void removeMenu(Menu menu){
+        menus.remove(menu);
+    }
 
     public ArrayList<Recipe> getRecipes() {
         return recipes;
