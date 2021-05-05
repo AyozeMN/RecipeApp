@@ -7,6 +7,9 @@ import file.UsersFile;
 import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
@@ -42,6 +45,7 @@ public class AppForm extends javax.swing.JFrame {
     private final DefaultListModel myRecipesToAddToMenuModel = new DefaultListModel();
     private final DefaultListModel myRecipesModel = new DefaultListModel();
     private final DefaultListModel myMenusModel = new DefaultListModel();
+    private final DefaultListModel recipeToRate = new DefaultListModel();
     private final DefaultComboBoxModel filterModel = new DefaultComboBoxModel();
      
     private void initIngredientsList(){
@@ -87,7 +91,7 @@ public class AppForm extends javax.swing.JFrame {
         this.clients = new ArrayList();
         
         initComponents();
-
+       
         ingredientsList.setModel(ingredientsModel);
         categoriesList.setModel(categoriesModel);
         recipesFoundList.setModel(recipeFoundModel);
@@ -111,6 +115,9 @@ public class AppForm extends javax.swing.JFrame {
         initFiltersComboBox();
         
         super.setSize(1280, 720);
+        
+        credentialsWrongLabel.setVisible(false);
+        rateErrorLabel.setVisible(false);
         
         cardLayout = (CardLayout) jPanelCard.getLayout();
         jPanelCard.setLayout(cardLayout);
@@ -145,6 +152,7 @@ public class AppForm extends javax.swing.JFrame {
         passwordLabel = new javax.swing.JLabel();
         passwordField = new javax.swing.JPasswordField();
         logInUserButton = new javax.swing.JButton();
+        credentialsWrongLabel = new javax.swing.JLabel();
         recipePanel = new javax.swing.JPanel();
         recipeTittlePanel = new javax.swing.JPanel();
         recipeTittlePanelLabel = new javax.swing.JLabel();
@@ -170,19 +178,25 @@ public class AppForm extends javax.swing.JFrame {
         logInTittlePanelLabel1 = new javax.swing.JLabel();
         myRecipesScrollBar = new javax.swing.JScrollPane();
         myRecipesList = new javax.swing.JList<>();
+        removeRecipeButton = new javax.swing.JButton();
         searhRecipePanel = new javax.swing.JPanel();
         searchRecipeTittlePanel = new javax.swing.JPanel();
         searchTittleLPanelLabel = new javax.swing.JLabel();
         filters = new javax.swing.JComboBox<>();
         searchButton = new javax.swing.JButton();
         recipeNameToSearch = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        categoriesFilterSearchLabel = new javax.swing.JLabel();
+        recipeNameSearchLabel = new javax.swing.JLabel();
         recipesFoundComboBox = new javax.swing.JScrollPane();
         recipesFoundList = new javax.swing.JList<>();
+        rateErrorLabel = new javax.swing.JLabel();
         rateRecipesPanel = new javax.swing.JPanel();
         rateRecipesTittlePanel = new javax.swing.JPanel();
         rateTittleLPanelLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        selectedRecipeToRateList = new javax.swing.JList<>();
+        rateValueSpinner = new javax.swing.JSpinner();
+        rateRecipeButton = new javax.swing.JButton();
         createMenuPanel = new javax.swing.JPanel();
         createMenuTittlePanel = new javax.swing.JPanel();
         createMenuTittleLPanelLabel = new javax.swing.JLabel();
@@ -261,12 +275,16 @@ public class AppForm extends javax.swing.JFrame {
         passwordField.setForeground(new java.awt.Color(238, 238, 238));
 
         logInUserButton.setBackground(new java.awt.Color(78, 204, 163));
+        logInUserButton.setForeground(new java.awt.Color(238, 238, 238));
         logInUserButton.setText("Log in");
         logInUserButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logInUserButtonActionPerformed(evt);
             }
         });
+
+        credentialsWrongLabel.setForeground(new java.awt.Color(255, 0, 0));
+        credentialsWrongLabel.setText("Credentials not founded, try again.");
 
         javax.swing.GroupLayout logInPanelLayout = new javax.swing.GroupLayout(logInPanel);
         logInPanel.setLayout(logInPanelLayout);
@@ -277,6 +295,10 @@ public class AppForm extends javax.swing.JFrame {
             .addGroup(logInPanelLayout.createSequentialGroup()
                 .addComponent(logInTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInPanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(logInUserButton)
+                .addGap(465, 465, 465))
             .addGroup(logInPanelLayout.createSequentialGroup()
                 .addGap(419, 419, 419)
                 .addGroup(logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -284,9 +306,9 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logInPanelLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(logInUserButton)
-                .addGap(465, 465, 465))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(credentialsWrongLabel)
+                .addGap(400, 400, 400))
         );
         logInPanelLayout.setVerticalGroup(
             logInPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +324,9 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(logInUserButton)
-                .addContainerGap(523, Short.MAX_VALUE))
+                .addGap(34, 34, 34)
+                .addComponent(credentialsWrongLabel)
+                .addContainerGap(465, Short.MAX_VALUE))
         );
 
         jPanelCard.add(logInPanel, "logInCard");
@@ -315,7 +339,7 @@ public class AppForm extends javax.swing.JFrame {
         recipeTittlePanelLabel.setBackground(new java.awt.Color(78, 204, 163));
         recipeTittlePanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         recipeTittlePanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        recipeTittlePanelLabel.setText("Create your own recipe");
+        recipeTittlePanelLabel.setText("Create your own Recipe");
 
         javax.swing.GroupLayout recipeTittlePanelLayout = new javax.swing.GroupLayout(recipeTittlePanel);
         recipeTittlePanel.setLayout(recipeTittlePanelLayout);
@@ -359,11 +383,6 @@ public class AppForm extends javax.swing.JFrame {
 
         priceText.setBackground(new java.awt.Color(35, 41, 49));
         priceText.setForeground(new java.awt.Color(238, 238, 238));
-        priceText.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceTextActionPerformed(evt);
-            }
-        });
 
         ingredientsLabel.setBackground(new java.awt.Color(238, 238, 238));
         ingredientsLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 14)); // NOI18N
@@ -397,6 +416,11 @@ public class AppForm extends javax.swing.JFrame {
         resetRecipe.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         resetRecipe.setForeground(new java.awt.Color(238, 238, 238));
         resetRecipe.setText("Reset");
+        resetRecipe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                resetRecipeActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout recipePanelLayout = new javax.swing.GroupLayout(recipePanel);
         recipePanel.setLayout(recipePanelLayout);
@@ -473,7 +497,7 @@ public class AppForm extends javax.swing.JFrame {
         logInTittlePanelLabel1.setBackground(new java.awt.Color(78, 204, 163));
         logInTittlePanelLabel1.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         logInTittlePanelLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logInTittlePanelLabel1.setText("My recipes");
+        logInTittlePanelLabel1.setText("My Recipes");
 
         javax.swing.GroupLayout logInTittlePanel1Layout = new javax.swing.GroupLayout(logInTittlePanel1);
         logInTittlePanel1.setLayout(logInTittlePanel1Layout);
@@ -492,6 +516,15 @@ public class AppForm extends javax.swing.JFrame {
 
         myRecipesScrollBar.setViewportView(myRecipesList);
 
+        removeRecipeButton.setBackground(new java.awt.Color(78, 204, 163));
+        removeRecipeButton.setForeground(new java.awt.Color(238, 238, 238));
+        removeRecipeButton.setText("Remove recipe");
+        removeRecipeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                removeRecipeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout myRecipesPanelLayout = new javax.swing.GroupLayout(myRecipesPanel);
         myRecipesPanel.setLayout(myRecipesPanelLayout);
         myRecipesPanelLayout.setHorizontalGroup(
@@ -501,7 +534,9 @@ public class AppForm extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(myRecipesPanelLayout.createSequentialGroup()
                 .addGap(98, 98, 98)
-                .addComponent(myRecipesScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(myRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(removeRecipeButton)
+                    .addComponent(myRecipesScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 800, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         myRecipesPanelLayout.setVerticalGroup(
@@ -510,7 +545,9 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(logInTittlePanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(myRecipesScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(120, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(removeRecipeButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanelCard.add(myRecipesPanel, "myRecipesCard");
@@ -523,7 +560,7 @@ public class AppForm extends javax.swing.JFrame {
         searchTittleLPanelLabel.setBackground(new java.awt.Color(78, 204, 163));
         searchTittleLPanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         searchTittleLPanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        searchTittleLPanelLabel.setText("Search a recipe");
+        searchTittleLPanelLabel.setText("Search Recipes");
 
         javax.swing.GroupLayout searchRecipeTittlePanelLayout = new javax.swing.GroupLayout(searchRecipeTittlePanel);
         searchRecipeTittlePanel.setLayout(searchRecipeTittlePanelLayout);
@@ -540,6 +577,8 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(searchTittleLPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        searchButton.setBackground(new java.awt.Color(78, 204, 163));
+        searchButton.setForeground(new java.awt.Color(238, 238, 238));
         searchButton.setText("Search");
         searchButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -547,13 +586,17 @@ public class AppForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setText("Filters:");
+        categoriesFilterSearchLabel.setForeground(new java.awt.Color(238, 238, 238));
+        categoriesFilterSearchLabel.setText("Categories:");
 
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Recipe name:");
+        recipeNameSearchLabel.setForeground(new java.awt.Color(238, 238, 238));
+        recipeNameSearchLabel.setText("Recipe name:");
 
+        recipesFoundList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         recipesFoundComboBox.setViewportView(recipesFoundList);
+
+        rateErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        rateErrorLabel.setText("You have to select one recipe to rate it.");
 
         javax.swing.GroupLayout searhRecipePanelLayout = new javax.swing.GroupLayout(searhRecipePanel);
         searhRecipePanel.setLayout(searhRecipePanelLayout);
@@ -565,13 +608,14 @@ public class AppForm extends javax.swing.JFrame {
             .addGroup(searhRecipePanelLayout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rateErrorLabel)
                     .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(searhRecipePanelLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addComponent(recipeNameSearchLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(recipeNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
+                        .addComponent(categoriesFilterSearchLabel)
                         .addGap(18, 18, 18)
                         .addComponent(filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
@@ -582,13 +626,15 @@ public class AppForm extends javax.swing.JFrame {
             searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(searhRecipePanelLayout.createSequentialGroup()
                 .addComponent(searchRecipeTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(14, 14, 14)
+                .addComponent(rateErrorLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(searchButton)
                     .addComponent(recipeNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(categoriesFilterSearchLabel)
+                    .addComponent(recipeNameSearchLabel))
                 .addGap(18, 18, 18)
                 .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -604,7 +650,7 @@ public class AppForm extends javax.swing.JFrame {
         rateTittleLPanelLabel.setBackground(new java.awt.Color(78, 204, 163));
         rateTittleLPanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         rateTittleLPanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        rateTittleLPanelLabel.setText("Rate recipes");
+        rateTittleLPanelLabel.setText("Rate the selected Recipe");
 
         javax.swing.GroupLayout rateRecipesTittlePanelLayout = new javax.swing.GroupLayout(rateRecipesTittlePanel);
         rateRecipesTittlePanel.setLayout(rateRecipesTittlePanelLayout);
@@ -621,6 +667,20 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(rateTittleLPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        selectedRecipeToRateList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(selectedRecipeToRateList);
+
+        rateValueSpinner.setValue(5);
+
+        rateRecipeButton.setBackground(new java.awt.Color(78, 204, 163));
+        rateRecipeButton.setForeground(new java.awt.Color(238, 238, 238));
+        rateRecipeButton.setText("Rate");
+        rateRecipeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateRecipeButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout rateRecipesPanelLayout = new javax.swing.GroupLayout(rateRecipesPanel);
         rateRecipesPanel.setLayout(rateRecipesPanelLayout);
         rateRecipesPanelLayout.setHorizontalGroup(
@@ -628,12 +688,29 @@ public class AppForm extends javax.swing.JFrame {
             .addGroup(rateRecipesPanelLayout.createSequentialGroup()
                 .addComponent(rateRecipesTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(rateRecipesPanelLayout.createSequentialGroup()
+                .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rateRecipesPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(rateRecipesPanelLayout.createSequentialGroup()
+                        .addGap(387, 387, 387)
+                        .addComponent(rateValueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(100, 100, 100)
+                        .addComponent(rateRecipeButton)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         rateRecipesPanelLayout.setVerticalGroup(
             rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rateRecipesPanelLayout.createSequentialGroup()
                 .addComponent(rateRecipesTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(773, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rateValueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(rateRecipeButton))
+                .addContainerGap(393, Short.MAX_VALUE))
         );
 
         jPanelCard.add(rateRecipesPanel, "rateRecipesCard");
@@ -646,7 +723,7 @@ public class AppForm extends javax.swing.JFrame {
         createMenuTittleLPanelLabel.setBackground(new java.awt.Color(78, 204, 163));
         createMenuTittleLPanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         createMenuTittleLPanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        createMenuTittleLPanelLabel.setText("Create your own menu");
+        createMenuTittleLPanelLabel.setText("Create your own Menu");
 
         javax.swing.GroupLayout createMenuTittlePanelLayout = new javax.swing.GroupLayout(createMenuTittlePanel);
         createMenuTittlePanel.setLayout(createMenuTittlePanelLayout);
@@ -665,6 +742,8 @@ public class AppForm extends javax.swing.JFrame {
 
         myRecipesToAddToMenuScrollBar.setViewportView(myRecipesToAddToMenuList);
 
+        addMenuButton.setBackground(new java.awt.Color(78, 204, 163));
+        addMenuButton.setForeground(new java.awt.Color(238, 238, 238));
         addMenuButton.setText("Create menu");
         addMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -678,6 +757,8 @@ public class AppForm extends javax.swing.JFrame {
         menusLabel.setForeground(new java.awt.Color(255, 255, 255));
         menusLabel.setText("Menus");
 
+        removeMenuButton.setBackground(new java.awt.Color(78, 204, 163));
+        removeMenuButton.setForeground(new java.awt.Color(238, 238, 238));
         removeMenuButton.setText("Remove menu");
         removeMenuButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -733,10 +814,10 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(25, 25, 25)
                 .addComponent(addMenuButton)
-                .addContainerGap(229, Short.MAX_VALUE))
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
-        jPanelCard.add(createMenuPanel, "rateRecipesCard");
+        jPanelCard.add(createMenuPanel, "menuCard");
 
         jSplitPanel.setLeftComponent(jPanelCard);
 
@@ -869,29 +950,35 @@ public class AppForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void logInButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInButtonActionPerformed
+        clearLogIn();
         cardLayout.show(jPanelCard, "logInCard");
     }//GEN-LAST:event_logInButtonActionPerformed
 
+    private void clearLogIn() {
+        usernameTextArea.setText("");
+        passwordField.setText("");
+    }
+
     private void createRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeButtonActionPerformed
+        clearRecipe();
         cardLayout.show(jPanelCard, "recipeCard");
+        rateRecipesButton.setEnabled(false);
     }//GEN-LAST:event_createRecipeButtonActionPerformed
 
-    private void priceTextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceTextActionPerformed
-        
-    }//GEN-LAST:event_priceTextActionPerformed
-
     private void createRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeActionPerformed
+                
         String name = recipeNameText.getText();
         String steps = stepsTextArea.getText();
         
         LocalTime localTime = LocalTime.of(cookTime.getHours(), cookTime.getMinutes());
-        double price = Double.parseDouble(priceText.getText());
+        double price = 0;
        
         int[] ingredientsIndices = ingredientsList.getSelectedIndices();
         
         ArrayList<Ingredient>recipeIngredients = new ArrayList();
         for (int ingredientsIndex : ingredientsIndices) {
             recipeIngredients.add((Ingredient) ingredientsModel.getElementAt(ingredientsIndex));
+            price += ((Ingredient) ingredientsModel.getElementAt(ingredientsIndex)).getPrice();
         }
         
         int[] categoriesIndices = categoriesList.getSelectedIndices();
@@ -911,26 +998,31 @@ public class AppForm extends javax.swing.JFrame {
         //Botones del menú si la sesión se inicia
         String userName = usernameTextArea.getText();
         String password = String.valueOf(passwordField.getPassword());
-        logIn(userName, password);
+        if(!(logIn(userName, password))) {
+            credentialsWrongLabel.setVisible(true);
+        }
     }//GEN-LAST:event_logInUserButtonActionPerformed
 
-    private void logIn(String userName, String password) {
+    private boolean logIn(String userName, String password) {
         for (Client client : clients) {
             if(client.getUserName().equals(userName) && client.getPassword().equals(password)){
-                System.out.println("coincide");
+                clearLogIn();
                 if(client.getUserRole() == 0) { //client
                     loggedUser = client;
                     logInButton.setEnabled(false);
                     createRecipeButton.setEnabled(true);
                     createMenuButton.setEnabled(true);
                     searchRecipeButton.setEnabled(true);
-                    rateRecipesButton.setEnabled(true);
+                    rateRecipesButton.setEnabled(false);
                     myRecipesButton.setEnabled(true);
                     logOutButton.setEnabled(true);
                     cardLayout.show(jPanelCard, "recipeCard");
                 }
+                credentialsWrongLabel.setVisible(false);
+                return true;
             }
         }
+        return false;
     }
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
@@ -953,10 +1045,12 @@ public class AppForm extends javax.swing.JFrame {
 
     private void myRecipesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myRecipesButtonActionPerformed
         cardLayout.show(jPanelCard, "myRecipesCard");
+        rateRecipesButton.setEnabled(false);
     }//GEN-LAST:event_myRecipesButtonActionPerformed
 
     private void searchRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRecipeButtonActionPerformed
         cardLayout.show(jPanelCard, "searchRecipesCard");
+        rateRecipesButton.setEnabled(true);
     }//GEN-LAST:event_searchRecipeButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -977,21 +1071,32 @@ public class AppForm extends javax.swing.JFrame {
         for (Client client : clients) {
             for (Recipe recipe : client.getRecipes()) {
                 if(recipe.getName().contains(recipeName) && recipe.containsCategory(fC.getName())){
-                    this.recipeFoundModel.addElement(recipe);
+                    this.recipeFoundModel.addElement("Creada por " + client.getUserName() + ": " + recipe);
                 }
             }
         }
     }
 
     private void rateRecipesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipesButtonActionPerformed
-        cardLayout.show(jPanelCard, "rateRecipesCard");
+        
+        if(!(recipesFoundList.isSelectionEmpty())) {
+            int[] recipeToRateIndex = recipesFoundList.getSelectedIndices();
+            recipeToRate.addElement(recipeFoundModel.getElementAt(recipeToRateIndex[0]));
+            selectedRecipeToRateList.setModel(recipeToRate);
+            selectedRecipeToRateList.setSelectedIndex(0);
+            cardLayout.show(jPanelCard, "rateRecipesCard");
+        } else {
+            rateErrorLabel.setVisible(true);
+        }
+        
     }//GEN-LAST:event_rateRecipesButtonActionPerformed
 
     private void createMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMenuButtonActionPerformed
-        cardLayout.show(jPanelCard, "rateRecipesCard");
+        cardLayout.show(jPanelCard, "menuCard");
         for (Recipe recipe : loggedUser.getRecipes()) {
             myRecipesToAddToMenuModel.addElement(recipe);
         }
+        rateRecipesButton.setEnabled(false);
     }//GEN-LAST:event_createMenuButtonActionPerformed
 
     private void addMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMenuButtonActionPerformed
@@ -1018,6 +1123,32 @@ public class AppForm extends javax.swing.JFrame {
             myMenusModel.addElement(menu);
         }
     }//GEN-LAST:event_removeMenuButtonActionPerformed
+
+    private void resetRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetRecipeActionPerformed
+        clearRecipe();
+    }//GEN-LAST:event_resetRecipeActionPerformed
+
+    private void removeRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeRecipeButtonActionPerformed
+        Recipe recipeToRemove = (Recipe) myRecipesModel.getElementAt(myRecipesList.getSelectedIndex());
+        loggedUser.removeRecipe(recipeToRemove);
+        myRecipesModel.clear();
+        for (Recipe recipe : loggedUser.getRecipes()) {
+            myRecipesModel.addElement(recipe);
+        }
+    }//GEN-LAST:event_removeRecipeButtonActionPerformed
+
+    private void rateRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipeButtonActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rateRecipeButtonActionPerformed
+
+    private void clearRecipe() {
+        recipeNameText.setText("");
+        stepsTextArea.setText("");
+        cookTime.setTime(new Date(0,0,0));
+        priceText.setText("");
+        ingredientsList.clearSelection();
+        categoriesList.clearSelection();
+    }
 
     /**
      * @param args the command line arguments
@@ -1057,6 +1188,7 @@ public class AppForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMenuButton;
     private javax.swing.JPanel buttonsPanel;
+    private javax.swing.JLabel categoriesFilterSearchLabel;
     private javax.swing.JLabel categoriesLabel;
     private javax.swing.JList<String> categoriesList;
     private javax.swing.JScrollPane categoriesScrollPane;
@@ -1068,14 +1200,14 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JPanel createMenuTittlePanel;
     private javax.swing.JButton createRecipe;
     private javax.swing.JButton createRecipeButton;
+    private javax.swing.JLabel credentialsWrongLabel;
     private javax.swing.JComboBox<String> filters;
     private javax.swing.JLabel ingredientsLabel;
     private javax.swing.JList<String> ingredientsList;
     private javax.swing.JScrollPane ingredientsScrollPane;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelCard;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPanel;
     private javax.swing.JButton logInButton;
     private javax.swing.JPanel logInPanel;
@@ -1100,10 +1232,14 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceText;
+    private javax.swing.JLabel rateErrorLabel;
+    private javax.swing.JButton rateRecipeButton;
     private javax.swing.JButton rateRecipesButton;
     private javax.swing.JPanel rateRecipesPanel;
     private javax.swing.JPanel rateRecipesTittlePanel;
     private javax.swing.JLabel rateTittleLPanelLabel;
+    private javax.swing.JSpinner rateValueSpinner;
+    private javax.swing.JLabel recipeNameSearchLabel;
     private javax.swing.JTextField recipeNameText;
     private javax.swing.JTextField recipeNameToSearch;
     private javax.swing.JPanel recipePanel;
@@ -1113,12 +1249,14 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JList<String> recipesFoundList;
     private javax.swing.JLabel recipesLabel;
     private javax.swing.JButton removeMenuButton;
+    private javax.swing.JButton removeRecipeButton;
     private javax.swing.JButton resetRecipe;
     private javax.swing.JButton searchButton;
     private javax.swing.JButton searchRecipeButton;
     private javax.swing.JPanel searchRecipeTittlePanel;
     private javax.swing.JLabel searchTittleLPanelLabel;
     private javax.swing.JPanel searhRecipePanel;
+    private javax.swing.JList<String> selectedRecipeToRateList;
     private javax.swing.JLabel stepsLabel;
     private javax.swing.JScrollPane stepsScrollPane;
     private javax.swing.JTextArea stepsTextArea;

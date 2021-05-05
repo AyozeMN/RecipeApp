@@ -29,6 +29,10 @@ public abstract class User {
         recipes.add(recipe);
     }
     
+    public void removeRecipe(Recipe recipe){
+        recipes.remove(recipe);
+    }
+    
     public void addMenu(Menu menu){
         menus.add(menu);
     }
