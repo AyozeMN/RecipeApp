@@ -10,6 +10,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.SimpleTimeZone;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField;
 import javax.swing.ListSelectionModel;
@@ -32,11 +34,13 @@ public class AppForm extends javax.swing.JFrame {
     
     private CardLayout cardLayout = new CardLayout();
 
-    private ArrayList<Ingredient>ingredients = new ArrayList();
-    private ArrayList<FinalCategory>categories = new ArrayList();
+    private ArrayList<Ingredient>ingredients;
+    private ArrayList<FinalCategory>categories;
     
-    private DefaultListModel ingredientsModel = new DefaultListModel();
-    private DefaultListModel categoriesModel = new DefaultListModel();
+    private final DefaultListModel ingredientsModel = new DefaultListModel();
+    private final DefaultListModel categoriesModel = new DefaultListModel();
+    private final DefaultListModel recipesFound = new DefaultListModel();
+    private final DefaultComboBoxModel filterModel = new DefaultComboBoxModel();
     
     private void initIngredientsList(){
         for (Ingredient ingredient : ingredients) {
@@ -57,11 +61,21 @@ public class AppForm extends javax.swing.JFrame {
         }
     }
     
+    private void initFiltersComboBox(){
+        for (FinalCategory category : categories) {
+            filterModel.addElement(category);
+        }
+    }
+    
     public AppForm() {
+        this.ingredients = new ArrayList();
+        this.categories = new ArrayList();
         initComponents();
 
         ingredientsList.setModel(ingredientsModel);
         categoriesList.setModel(categoriesModel);
+        recipesFoundList.setModel(recipesFound);
+        filters.setModel(filterModel);
         
         ingredientsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         categoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
@@ -71,6 +85,7 @@ public class AppForm extends javax.swing.JFrame {
 
         initIngredientsList();
         initCategoriesList();
+        initFiltersComboBox();
         super.setSize(1280, 720);
         
         cardLayout = (CardLayout) jPanelCard.getLayout();
@@ -130,6 +145,16 @@ public class AppForm extends javax.swing.JFrame {
         logInTittlePanelLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         myRecipesTextArea = new javax.swing.JTextArea();
+        searhRecipePanel = new javax.swing.JPanel();
+        searchRecipeTittlePanel = new javax.swing.JPanel();
+        searchTittleLPanelLabel = new javax.swing.JLabel();
+        filters = new javax.swing.JComboBox<>();
+        searchButton = new javax.swing.JButton();
+        recipeNameToSearch = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        recipesFoundComboBox = new javax.swing.JScrollPane();
+        recipesFoundList = new javax.swing.JList<>();
         buttonsPanel = new javax.swing.JPanel();
         logInButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
@@ -452,6 +477,87 @@ public class AppForm extends javax.swing.JFrame {
 
         jPanelCard.add(myRecipesPanel, "myRecipesCard");
 
+        searhRecipePanel.setBackground(new java.awt.Color(57, 62, 70));
+        searhRecipePanel.setPreferredSize(new java.awt.Dimension(1006, 848));
+
+        searchRecipeTittlePanel.setBackground(new java.awt.Color(78, 204, 163));
+
+        searchTittleLPanelLabel.setBackground(new java.awt.Color(78, 204, 163));
+        searchTittleLPanelLabel.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
+        searchTittleLPanelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        searchTittleLPanelLabel.setText("Search a recipe");
+
+        javax.swing.GroupLayout searchRecipeTittlePanelLayout = new javax.swing.GroupLayout(searchRecipeTittlePanel);
+        searchRecipeTittlePanel.setLayout(searchRecipeTittlePanelLayout);
+        searchRecipeTittlePanelLayout.setHorizontalGroup(
+            searchRecipeTittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searchRecipeTittlePanelLayout.createSequentialGroup()
+                .addComponent(searchTittleLPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 1000, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        searchRecipeTittlePanelLayout.setVerticalGroup(
+            searchRecipeTittlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, searchRecipeTittlePanelLayout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(searchTittleLPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        searchButton.setText("Search");
+        searchButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Filters:");
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Recipe name:");
+
+        recipesFoundComboBox.setViewportView(recipesFoundList);
+
+        javax.swing.GroupLayout searhRecipePanelLayout = new javax.swing.GroupLayout(searhRecipePanel);
+        searhRecipePanel.setLayout(searhRecipePanelLayout);
+        searhRecipePanelLayout.setHorizontalGroup(
+            searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                .addComponent(searchRecipeTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(recipeNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        searhRecipePanelLayout.setVerticalGroup(
+            searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                .addComponent(searchRecipeTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42)
+                .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchButton)
+                    .addComponent(recipeNameToSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(101, Short.MAX_VALUE))
+        );
+
+        jPanelCard.add(searhRecipePanel, "searchRecipesCard");
+
         jSplitPanel.setLeftComponent(jPanelCard);
 
         buttonsPanel.setBackground(new java.awt.Color(238, 238, 238));
@@ -496,6 +602,11 @@ public class AppForm extends javax.swing.JFrame {
         searchRecipeButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
         searchRecipeButton.setForeground(new java.awt.Color(57, 62, 70));
         searchRecipeButton.setText("Search Recipes");
+        searchRecipeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchRecipeButtonActionPerformed(evt);
+            }
+        });
 
         rateRecipesButton.setBackground(new java.awt.Color(78, 204, 163));
         rateRecipesButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
@@ -647,6 +758,22 @@ public class AppForm extends javax.swing.JFrame {
         cardLayout.show(jPanelCard, "myRecipesCard");
     }//GEN-LAST:event_myReipesButtonActionPerformed
 
+    private void searchRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRecipeButtonActionPerformed
+        cardLayout.show(jPanelCard, "searchRecipesCard");
+    }//GEN-LAST:event_searchRecipeButtonActionPerformed
+
+    private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
+        String recipeName = recipeNameToSearch.getText();
+        FinalCategory filter = (FinalCategory) filters.getSelectedItem();
+        for (User user : users) {
+            for (Recipe recipe : user.getRecipes()) {
+                if(recipe.getName().contains(recipeName) && recipe.containsCategory(filter.getName())){
+                    this.recipesFound.addElement(recipe);
+                }
+            }
+        }
+    }//GEN-LAST:event_searchButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -692,9 +819,12 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JButton createMenuButton;
     private javax.swing.JButton createRecipe;
     private javax.swing.JButton createRecipeButton;
+    private javax.swing.JComboBox<String> filters;
     private javax.swing.JLabel ingredientsLabel;
     private javax.swing.JList<String> ingredientsList;
     private javax.swing.JScrollPane ingredientsScrollPane;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanelCard;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSplitPane jSplitPanel;
@@ -716,11 +846,18 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JTextField priceText;
     private javax.swing.JButton rateRecipesButton;
     private javax.swing.JTextField recipeNameText;
+    private javax.swing.JTextField recipeNameToSearch;
     private javax.swing.JPanel recipePanel;
     private javax.swing.JPanel recipeTittlePanel;
     private javax.swing.JLabel recipeTittlePanelLabel;
+    private javax.swing.JScrollPane recipesFoundComboBox;
+    private javax.swing.JList<String> recipesFoundList;
     private javax.swing.JButton resetRecipe;
+    private javax.swing.JButton searchButton;
     private javax.swing.JButton searchRecipeButton;
+    private javax.swing.JPanel searchRecipeTittlePanel;
+    private javax.swing.JLabel searchTittleLPanelLabel;
+    private javax.swing.JPanel searhRecipePanel;
     private javax.swing.JLabel stepsLabel;
     private javax.swing.JScrollPane stepsScrollPane;
     private javax.swing.JTextArea stepsTextArea;
