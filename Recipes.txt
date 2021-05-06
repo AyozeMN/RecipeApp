@@ -1,1 +1,1 @@
-Tortilla/Primero los huevos;Luego el pan;Prueba a a a/3.7/00:05/5;1;2;4/Leche desnatada;Huevos grandes/Lacteos;Leche
+0:prueba:prueba:prueba@gmmail.com:666666660:Receta de cocina:Pasa 1:3.5:01:05:sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,:;Dinner;Lunch;Desert;Italian;Mexican;-Cookie-Cake-Pasta-Tacos

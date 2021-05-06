@@ -3,6 +3,7 @@ package gui;
 import file.CategoriesFile;
 import file.IngredientsFile;
 import file.NotFinalCategoryFile;
+import file.RecipeFile;
 import file.UsersFile;
 import java.awt.CardLayout;
 import java.time.LocalTime;
@@ -26,6 +27,7 @@ public class AppForm extends javax.swing.JFrame {
     public IngredientsFile ingredientsFile = new IngredientsFile();
     public CategoriesFile categoriesFile = new CategoriesFile();
     public NotFinalCategoryFile notFinalCategoryFile = new NotFinalCategoryFile();
+    public RecipeFile recipeFile = new RecipeFile();
     public UsersFile usersFile = new UsersFile();
     
     //public ArrayList<User>users = new ArrayList();
@@ -1105,6 +1107,7 @@ public class AppForm extends javax.swing.JFrame {
             cardLayout.show(jPanelCard, "myRecipesCard");
             setMyRecipes();
         }
+        recipeFile.saveToFile(loggedUser, recipe);
         
     }//GEN-LAST:event_createRecipeActionPerformed
 
