@@ -8,9 +8,6 @@ import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
@@ -1312,8 +1309,6 @@ public class AppForm extends javax.swing.JFrame {
     private void notFinalCategoriesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notFinalCategoriesListMouseClicked
         if(!notFinalCategoriesList.isSelectionEmpty()){
             for (int index: notFinalCategoriesList.getSelectedIndices()) {
-                System.out.println("idx" + index);
-                System.out.println("selected" + selected[index]);
                 if (selected[index] == 0) {
                     NotFinalCategory notFinalCategory = (NotFinalCategory) notFinalCategoriesModel.getElementAt(index);
                     for (FinalCategory subCategory : notFinalCategory.getSubCategories()) {
@@ -1321,13 +1316,10 @@ public class AppForm extends javax.swing.JFrame {
                     }
                     selected[index] = 1;
                 }
-                System.out.println("selected2" + selected[index]);
             }
         }else{
             finalCategoriesModel.clear();
-            for (int i = 0; i < selected.length; i++) {
-                selected[i] = 0;
-            }
+            initSelectedCategories();
         }
     }//GEN-LAST:event_notFinalCategoriesListMouseClicked
 

@@ -21,9 +21,11 @@ public class NotFinalCategoryFile {
             while(sc.hasNextLine()){
                 String [] data = sc.nextLine().split(":");
                 categories.add(new NotFinalCategory(data[0]));
-                String [] dataSub = data[1].split(",");
-                for (String subCat : dataSub) {
-                    categories.get(idx).addSubCategories(new FinalCategory(subCat));
+                if(data.length > 1) {
+                    String [] dataSub = data[1].split(",");
+                    for (String subCat : dataSub) {
+                        categories.get(idx).addSubCategories(new FinalCategory(subCat));
+                    }
                 }
                 idx++;
             }

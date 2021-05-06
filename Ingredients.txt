@@ -1,3 +1,98 @@
-Pan de molde:1.80
-Leche desnatada:1.3
-Huevos grandes:2.4
+salt:1.00
+sugar:1.00
+butter:0.50
+eggs:0.50
+garlic:1.50
+water:1.00
+olive oil:0.50
+milk:1.00
+flour:1.00
+onion:0.50
+pepper:1.50
+black pepper:0.50
+brown sugar:1.50
+egg:1.50
+cinnamon:1.00
+all purpose flour:1.00
+baking powder:1.00
+lemon juice:1.50
+tomatoes:0.50
+vanilla:1.50
+vanilla extract:0.50
+parsley:0.50
+unsalted butter:2.20
+baking soda:1.00
+sour cream:1.00
+vegetable oil:2.20
+celery:0.50
+ginger:0.50
+lemon:1.00
+cream cheese:2.20
+carrots:2.20
+cheddar cheese:0.50
+beef:2.20
+potatoes:2.20
+oil:1.50
+honey:2.20
+nutmeg:1.00
+cheese:2.20
+soy sauce:2.20
+mayonnaise:0.50
+chicken broth:2.20
+oregano:0.50
+cumin:1.50
+thyme:2.20
+garlic powder:2.20
+salt and pepper:1.00
+mushrooms:2.20
+cilantro:0.50
+basil:2.20
+pecans:2.20
+bacon:2.20
+heavy cream:0.50
+chicken breasts:2.20
+worcestershire sauce:0.50
+paprika:0.50
+chocolate:2.20
+chicken:2.20
+walnuts:0.50
+chili powder:2.20
+almonds:1.00
+lime juice:1.50
+parmesan cheese:2.20
+pineapple:0.50
+rice:0.50
+orange juice:0.50
+white sugar:2.20
+green pepper:2.20
+raisins:0.50
+coconut:2.20
+cayenne pepper:1.00
+nuts:2.20
+dijon mustard:2.20
+cornstarch:1.50
+mzarella cheese:2.20
+buttermilk:0.50
+vinegar:2.20
+apples:2.20
+red pepper:1.50
+tomato sauce:2.20
+bread crumbs:2.20
+oats:2.20
+spinach:1.50
+shortening:2.20
+red pepper flakes:2.20
+shallots:1.00
+tomato paste:2.20
+red bell pepper:2.20
+lime:1.50
+shrimp:0.50
+zucchini:1.00
+strawberries:2.20
+rosemary:2.20
+canola oil:2.20
+green onions:1.00
+bananas:1.50
+scallions:1.00
+cloves:1.50
+mustard:1.50

@@ -1,2 +1,10 @@
-Lacteos:Yogur,Leche
-Vegetariano:Pan,
+Breakfast
+Dinner
+Lunch
+Desert:Cookie,Cake
+Italian:Pasta,Pizza
+Mexican:Tacos
+Spanish:Tortilla,Croquets
+Vegetarian:Soup,Vegetables
+Meat:Chicken,Beef
+Fish
