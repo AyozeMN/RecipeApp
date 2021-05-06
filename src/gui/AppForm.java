@@ -40,7 +40,8 @@ public class AppForm extends javax.swing.JFrame {
     private ArrayList<FinalCategory>finalCategories;
     private ArrayList<NotFinalCategory>notFinalCategories;
     private ArrayList<User>users;
-    
+    private int[] selected;
+        
     private final DefaultListModel ingredientsModel = new DefaultListModel();
     private final DefaultListModel notFinalCategoriesModel = new DefaultListModel();
     private final DefaultListModel finalCategoriesModel = new DefaultListModel();
@@ -71,6 +72,12 @@ public class AppForm extends javax.swing.JFrame {
         myRecipesModel.clear();
         myMenusModel.clear();
         recipeToRateModel.clear();
+    }
+    
+    private void initSelectedCategories(){
+        for (int i = 0; i < selected.length; i++) {
+            selected[i] = 0;
+        }
     }
     
     private void initNotFinalCategoriesList(){
@@ -108,7 +115,7 @@ public class AppForm extends javax.swing.JFrame {
         this.finalCategories = new ArrayList();
         this.notFinalCategories = new ArrayList();
         this.users = new ArrayList();
-        
+                
         initComponents();
        
         ingredientsList.setModel(ingredientsModel);
@@ -128,7 +135,10 @@ public class AppForm extends javax.swing.JFrame {
         ingredientsFile.loadFromFile(ingredients);
         categoriesFile.loadFromFile(finalCategories);
         notFinalCategoryFile.loadFromFile(notFinalCategories);
-
+        
+        this.selected = new int[notFinalCategories.size()];
+        
+        initSelectedCategories();
         initIngredientsList();
 //        initFinalCategoriesList();
         initNotFinalCategoriesList();
@@ -1065,6 +1075,7 @@ public class AppForm extends javax.swing.JFrame {
         recipeWrongLabel.setVisible(false);
         cardLayout.show(jPanelCard, "recipeCard");
         rateRecipesButton.setEnabled(false);
+        initSelectedCategories();
     }//GEN-LAST:event_createRecipeButtonActionPerformed
 
     private void createRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeActionPerformed
@@ -1301,13 +1312,22 @@ public class AppForm extends javax.swing.JFrame {
     private void notFinalCategoriesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notFinalCategoriesListMouseClicked
         if(!notFinalCategoriesList.isSelectionEmpty()){
             for (int index: notFinalCategoriesList.getSelectedIndices()) {
-                NotFinalCategory notFinalCategory = (NotFinalCategory) notFinalCategoriesModel.getElementAt(index);
-                for (FinalCategory subCategory : notFinalCategory.getSubCategories()) {
-                    finalCategoriesModel.addElement(subCategory);
+                System.out.println("idx" + index);
+                System.out.println("selected" + selected[index]);
+                if (selected[index] == 0) {
+                    NotFinalCategory notFinalCategory = (NotFinalCategory) notFinalCategoriesModel.getElementAt(index);
+                    for (FinalCategory subCategory : notFinalCategory.getSubCategories()) {
+                        finalCategoriesModel.addElement(subCategory);
+                    }
+                    selected[index] = 1;
                 }
+                System.out.println("selected2" + selected[index]);
             }
         }else{
             finalCategoriesModel.clear();
+            for (int i = 0; i < selected.length; i++) {
+                selected[i] = 0;
+            }
         }
     }//GEN-LAST:event_notFinalCategoriesListMouseClicked
 
@@ -1318,6 +1338,9 @@ public class AppForm extends javax.swing.JFrame {
         priceText.setText("");
         ingredientsList.clearSelection();
         notFinalCategoriesList.clearSelection();
+        finalCategoriesList.clearSelection();
+        finalCategoriesModel.clear();
+        initSelectedCategories();
     }
 
     /**
