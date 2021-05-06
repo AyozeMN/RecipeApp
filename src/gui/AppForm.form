@@ -144,7 +144,7 @@
                           <Component id="logInUserButton" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                           <Component id="credentialsWrongLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="465" max="32767" attributes="0"/>
+                          <EmptySpace pref="473" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -283,21 +283,26 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="recipeWrongLabel" min="-2" max="-2" attributes="0"/>
                               <Component id="recipeNameText" min="-2" pref="177" max="-2" attributes="0"/>
                               <Component id="stepsScrollPane" min="-2" pref="326" max="-2" attributes="0"/>
-                              <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="createRecipe" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="resetRecipe" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="createRecipe" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="resetRecipe" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="categoriesScrollPane" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="ingredientsScrollPane" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="priceText" alignment="0" max="32767" attributes="0"/>
                                   </Group>
-                                  <Component id="categoriesScrollPane" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="ingredientsScrollPane" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="priceText" alignment="0" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="categoriesScrollPane1" max="32767" attributes="0"/>
                               </Group>
                               <Component id="cookTime" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="294" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -333,8 +338,13 @@
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
-                                  <Component id="categoriesScrollPane" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="categoriesScrollPane" min="-2" max="-2" attributes="0"/>
+                                      <Component id="categoriesScrollPane1" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="recipeWrongLabel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="resetRecipe" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="createRecipe" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -342,7 +352,7 @@
                               </Group>
                               <Component id="categoriesLabel" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="108" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -539,7 +549,7 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JList" name="categoriesList">
+                    <Component class="javax.swing.JList" name="notFinalCategoriesList">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="31" green="29" red="23" type="rgb"/>
@@ -551,6 +561,9 @@
                           <StringArray count="0"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="notFinalCategoriesListMouseClicked"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -593,6 +606,39 @@
                 </Component>
                 <Component class="lu.tudor.santec.jtimechooser.JTimeChooser" name="cookTime">
                 </Component>
+                <Component class="javax.swing.JLabel" name="recipeWrongLabel">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="0" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Recipe already exists"/>
+                  </Properties>
+                </Component>
+                <Container class="javax.swing.JScrollPane" name="categoriesScrollPane1">
+                  <AuxValues>
+                    <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+                  </AuxValues>
+
+                  <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+                  <SubComponents>
+                    <Component class="javax.swing.JList" name="finalCategoriesList">
+                      <Properties>
+                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="31" green="29" red="23" type="rgb"/>
+                        </Property>
+                        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                          <Color blue="ee" green="ee" red="ee" type="rgb"/>
+                        </Property>
+                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+                          <StringArray count="0"/>
+                        </Property>
+                      </Properties>
+                      <AuxValues>
+                        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+                      </AuxValues>
+                    </Component>
+                  </SubComponents>
+                </Container>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="myRecipesPanel">
@@ -742,7 +788,6 @@
                           <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="rateErrorLabel" min="-2" max="-2" attributes="0"/>
-                              <Component id="recipesFoundComboBox" min="-2" pref="930" max="-2" attributes="0"/>
                               <Group type="102" attributes="0">
                                   <Component id="recipeNameSearchLabel" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
@@ -754,8 +799,16 @@
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="searchButton" min="-2" pref="88" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Component id="recipesFoundComboBox" min="-2" pref="795" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="rateOrRemoveButton" max="32767" attributes="0"/>
+                                      <Component id="adminRemoveRecipeButton" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -774,7 +827,14 @@
                               <Component id="recipeNameSearchLabel" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="recipesFoundComboBox" min="-2" pref="587" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="recipesFoundComboBox" min="-2" pref="587" max="-2" attributes="0"/>
+                              <Group type="102" attributes="0">
+                                  <Component id="rateOrRemoveButton" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="adminRemoveRecipeButton" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -877,6 +937,9 @@
                         </Property>
                         <Property name="selectionMode" type="int" value="0"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="recipesFoundListMouseClicked"/>
+                      </Events>
                       <AuxValues>
                         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                       </AuxValues>
@@ -890,6 +953,24 @@
                     </Property>
                     <Property name="text" type="java.lang.String" value="You have to select one recipe to rate it."/>
                   </Properties>
+                </Component>
+                <Component class="javax.swing.JButton" name="rateOrRemoveButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Rate"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateOrRemoveButtonActionPerformed"/>
+                  </Events>
+                </Component>
+                <Component class="javax.swing.JButton" name="adminRemoveRecipeButton">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Remove"/>
+                    <Property name="enabled" type="boolean" value="false"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="adminRemoveRecipeButtonActionPerformed"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -915,20 +996,25 @@
                           <Component id="rateRecipesTittlePanel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jScrollPane1" min="-2" pref="977" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="387" max="-2" attributes="0"/>
                                   <Component id="rateValueSpinner" min="-2" pref="50" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Component id="rateRecipeButton" min="-2" max="-2" attributes="0"/>
                               </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="ratedMessage" min="-2" pref="263" max="-2" attributes="0"/>
+                                      <Component id="backButton3" min="-2" max="-2" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -936,14 +1022,19 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="rateRecipesTittlePanel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" min="-2" pref="312" max="-2" attributes="0"/>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="rateValueSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="rateRecipeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
+                          <Component id="backButton3" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="rateValueSpinner" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="rateRecipeButton" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jScrollPane1" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="393" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="ratedMessage" min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace pref="521" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1030,6 +1121,27 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateRecipeButtonActionPerformed"/>
                   </Events>
                 </Component>
+                <Component class="javax.swing.JButton" name="backButton3">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="&lt;  Back"/>
+                    <Property name="toolTipText" type="java.lang.String" value=""/>
+                    <Property name="borderPainted" type="boolean" value="false"/>
+                    <Property name="contentAreaFilled" type="boolean" value="false"/>
+                    <Property name="focusCycleRoot" type="boolean" value="true"/>
+                    <Property name="focusPainted" type="boolean" value="false"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="ratedMessage">
+                  <Properties>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                    </Property>
+                  </Properties>
+                </Component>
               </SubComponents>
             </Container>
             <Container class="javax.swing.JPanel" name="createMenuPanel">
@@ -1098,7 +1210,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
                           <Component id="addMenuButton" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="215" max="32767" attributes="0"/>
+                          <EmptySpace pref="227" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1273,7 +1385,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace pref="151" max="32767" attributes="0"/>
+                      <EmptySpace pref="200" max="32767" attributes="0"/>
                       <Component id="logInButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="createRecipeButton" min="-2" max="-2" attributes="0"/>
@@ -1390,7 +1502,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="46" green="3e" red="39" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Rate Recipes"/>
+                <Property name="text" type="java.lang.String" value="Rated Recipes"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rateRecipesButtonActionPerformed"/>

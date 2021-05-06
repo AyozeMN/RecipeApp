@@ -8,6 +8,9 @@ import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
@@ -34,17 +37,18 @@ public class AppForm extends javax.swing.JFrame {
     private CardLayout cardLayout = new CardLayout();
 
     private ArrayList<Ingredient>ingredients;
-    private ArrayList<FinalCategory>categories;
+    private ArrayList<FinalCategory>finalCategories;
     private ArrayList<NotFinalCategory>notFinalCategories;
     private ArrayList<User>users;
     
     private final DefaultListModel ingredientsModel = new DefaultListModel();
-    private final DefaultListModel categoriesModel = new DefaultListModel();
+    private final DefaultListModel notFinalCategoriesModel = new DefaultListModel();
+    private final DefaultListModel finalCategoriesModel = new DefaultListModel();
     private final DefaultListModel recipeFoundModel = new DefaultListModel();
     private final DefaultListModel myRecipesToAddToMenuModel = new DefaultListModel();
     private final DefaultListModel myRecipesModel = new DefaultListModel();
     private final DefaultListModel myMenusModel = new DefaultListModel();
-    private final DefaultListModel recipeToRate = new DefaultListModel();
+    private final DefaultListModel recipeToRateModel = new DefaultListModel();
     private final DefaultComboBoxModel filterModel = new DefaultComboBoxModel();
      
     private void initIngredientsList(){
@@ -53,17 +57,33 @@ public class AppForm extends javax.swing.JFrame {
         }
     }
     
-    private void initNotFinalCategoriesList(){
-        for (NotFinalCategory notFinalCategory : notFinalCategories) {
-            categoriesModel.addElement(notFinalCategory);
+    private void initSearchList(){
+        for (User user : users) {
+            for (Recipe recipe : user.getRecipes()) {
+                recipeFoundModel.addElement(recipe);
+            }
         }
     }
     
-    private void initFinalCategoriesList(){
-        for (FinalCategory category : categories) {
-            categoriesModel.addElement(category);
+    private void clearModels(){
+        recipeFoundModel.clear();
+        myRecipesToAddToMenuModel.clear();
+        myRecipesModel.clear();
+        myMenusModel.clear();
+        recipeToRateModel.clear();
+    }
+    
+    private void initNotFinalCategoriesList(){
+        for (NotFinalCategory notFinalCategory : notFinalCategories) {
+            notFinalCategoriesModel.addElement(notFinalCategory);
         }
     }
+    
+    /*private void initFinalCategoriesList(){
+        for (FinalCategory category : finalCategories) {
+            notFinalCategoriesModel.addElement(category);
+        }
+    }*/
     
     private void setMyRecipes(){
         myRecipesModel.clear();
@@ -78,21 +98,22 @@ public class AppForm extends javax.swing.JFrame {
         for (NotFinalCategory notFinalCategory : notFinalCategories) {
             filterModel.addElement(notFinalCategory);
         }
-        for (FinalCategory category : categories) {
+        for (FinalCategory category : finalCategories) {
             filterModel.addElement(category);
         }
     }
     
     public AppForm() {
         this.ingredients = new ArrayList();
-        this.categories = new ArrayList();
+        this.finalCategories = new ArrayList();
         this.notFinalCategories = new ArrayList();
         this.users = new ArrayList();
         
         initComponents();
        
         ingredientsList.setModel(ingredientsModel);
-        categoriesList.setModel(categoriesModel);
+        notFinalCategoriesList.setModel(notFinalCategoriesModel);
+        finalCategoriesList.setModel(finalCategoriesModel);
         recipesFoundList.setModel(recipeFoundModel);
         myRecipesToAddToMenuList.setModel(myRecipesToAddToMenuModel);
         myRecipesList.setModel(myRecipesModel);
@@ -100,16 +121,16 @@ public class AppForm extends javax.swing.JFrame {
         filters.setModel(filterModel);
         
         ingredientsList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        categoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+        notFinalCategoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         myRecipesToAddToMenuList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         usersFile.loadFromFile(users);
         ingredientsFile.loadFromFile(ingredients);
-        categoriesFile.loadFromFile(categories);
+        categoriesFile.loadFromFile(finalCategories);
         notFinalCategoryFile.loadFromFile(notFinalCategories);
 
         initIngredientsList();
-        initFinalCategoriesList();
+//        initFinalCategoriesList();
         initNotFinalCategoriesList();
         initFiltersComboBox();
         
@@ -117,6 +138,10 @@ public class AppForm extends javax.swing.JFrame {
         
         credentialsWrongLabel.setVisible(false);
         rateErrorLabel.setVisible(false);
+        recipeWrongLabel.setVisible(false);
+        adminRemoveRecipeButton.setVisible(false);
+        adminRemoveRecipeButton.setEnabled(false);
+
         
         cardLayout = (CardLayout) jPanelCard.getLayout();
         jPanelCard.setLayout(cardLayout);
@@ -168,10 +193,13 @@ public class AppForm extends javax.swing.JFrame {
         ingredientsList = new javax.swing.JList<>();
         categoriesLabel = new javax.swing.JLabel();
         categoriesScrollPane = new javax.swing.JScrollPane();
-        categoriesList = new javax.swing.JList<>();
+        notFinalCategoriesList = new javax.swing.JList<>();
         createRecipe = new javax.swing.JButton();
         resetRecipe = new javax.swing.JButton();
         cookTime = new lu.tudor.santec.jtimechooser.JTimeChooser();
+        recipeWrongLabel = new javax.swing.JLabel();
+        categoriesScrollPane1 = new javax.swing.JScrollPane();
+        finalCategoriesList = new javax.swing.JList<>();
         myRecipesPanel = new javax.swing.JPanel();
         logInTittlePanel1 = new javax.swing.JPanel();
         logInTittlePanelLabel1 = new javax.swing.JLabel();
@@ -189,6 +217,8 @@ public class AppForm extends javax.swing.JFrame {
         recipesFoundComboBox = new javax.swing.JScrollPane();
         recipesFoundList = new javax.swing.JList<>();
         rateErrorLabel = new javax.swing.JLabel();
+        rateOrRemoveButton = new javax.swing.JButton();
+        adminRemoveRecipeButton = new javax.swing.JButton();
         rateRecipesPanel = new javax.swing.JPanel();
         rateRecipesTittlePanel = new javax.swing.JPanel();
         rateTittleLPanelLabel = new javax.swing.JLabel();
@@ -196,6 +226,8 @@ public class AppForm extends javax.swing.JFrame {
         selectedRecipeToRateList = new javax.swing.JList<>();
         rateValueSpinner = new javax.swing.JSpinner();
         rateRecipeButton = new javax.swing.JButton();
+        backButton3 = new javax.swing.JButton();
+        ratedMessage = new javax.swing.JLabel();
         createMenuPanel = new javax.swing.JPanel();
         createMenuTittlePanel = new javax.swing.JPanel();
         createMenuTittleLPanelLabel = new javax.swing.JLabel();
@@ -325,7 +357,7 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(logInUserButton)
                 .addGap(34, 34, 34)
                 .addComponent(credentialsWrongLabel)
-                .addContainerGap(465, Short.MAX_VALUE))
+                .addContainerGap(473, Short.MAX_VALUE))
         );
 
         jPanelCard.add(logInPanel, "logInCard");
@@ -397,9 +429,14 @@ public class AppForm extends javax.swing.JFrame {
         categoriesLabel.setForeground(new java.awt.Color(238, 238, 238));
         categoriesLabel.setText("Categories:");
 
-        categoriesList.setBackground(new java.awt.Color(35, 41, 49));
-        categoriesList.setForeground(new java.awt.Color(238, 238, 238));
-        categoriesScrollPane.setViewportView(categoriesList);
+        notFinalCategoriesList.setBackground(new java.awt.Color(35, 41, 49));
+        notFinalCategoriesList.setForeground(new java.awt.Color(238, 238, 238));
+        notFinalCategoriesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                notFinalCategoriesListMouseClicked(evt);
+            }
+        });
+        categoriesScrollPane.setViewportView(notFinalCategoriesList);
 
         createRecipe.setBackground(new java.awt.Color(78, 204, 163));
         createRecipe.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -421,6 +458,13 @@ public class AppForm extends javax.swing.JFrame {
             }
         });
 
+        recipeWrongLabel.setForeground(new java.awt.Color(255, 0, 0));
+        recipeWrongLabel.setText("Recipe already exists");
+
+        finalCategoriesList.setBackground(new java.awt.Color(35, 41, 49));
+        finalCategoriesList.setForeground(new java.awt.Color(238, 238, 238));
+        categoriesScrollPane1.setViewportView(finalCategoriesList);
+
         javax.swing.GroupLayout recipePanelLayout = new javax.swing.GroupLayout(recipePanel);
         recipePanel.setLayout(recipePanelLayout);
         recipePanelLayout.setHorizontalGroup(
@@ -437,18 +481,22 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(categoriesLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(recipeWrongLabel)
                     .addComponent(recipeNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(stepsScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, recipePanelLayout.createSequentialGroup()
-                            .addComponent(createRecipe)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(resetRecipe))
-                        .addComponent(categoriesScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(priceText, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addGroup(recipePanelLayout.createSequentialGroup()
+                        .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, recipePanelLayout.createSequentialGroup()
+                                .addComponent(createRecipe)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(resetRecipe))
+                            .addComponent(categoriesScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(priceText, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addComponent(categoriesScrollPane1))
                     .addComponent(cookTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addGap(86, 86, 86))
         );
         recipePanelLayout.setVerticalGroup(
             recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -477,13 +525,17 @@ public class AppForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(recipePanelLayout.createSequentialGroup()
-                        .addComponent(categoriesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
+                        .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(categoriesScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(categoriesScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(recipeWrongLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(resetRecipe)
                             .addComponent(createRecipe)))
                     .addComponent(categoriesLabel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
 
         jPanelCard.add(recipePanel, "recipeCard");
@@ -592,10 +644,31 @@ public class AppForm extends javax.swing.JFrame {
         recipeNameSearchLabel.setText("Recipe name:");
 
         recipesFoundList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        recipesFoundList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                recipesFoundListMouseClicked(evt);
+            }
+        });
         recipesFoundComboBox.setViewportView(recipesFoundList);
 
         rateErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         rateErrorLabel.setText("You have to select one recipe to rate it.");
+
+        rateOrRemoveButton.setText("Rate");
+        rateOrRemoveButton.setEnabled(false);
+        rateOrRemoveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rateOrRemoveButtonActionPerformed(evt);
+            }
+        });
+
+        adminRemoveRecipeButton.setText("Remove");
+        adminRemoveRecipeButton.setEnabled(false);
+        adminRemoveRecipeButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                adminRemoveRecipeButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout searhRecipePanelLayout = new javax.swing.GroupLayout(searhRecipePanel);
         searhRecipePanel.setLayout(searhRecipePanelLayout);
@@ -608,7 +681,6 @@ public class AppForm extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(rateErrorLabel)
-                    .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(searhRecipePanelLayout.createSequentialGroup()
                         .addComponent(recipeNameSearchLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -618,8 +690,14 @@ public class AppForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(filters, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(searchButton, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                        .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rateOrRemoveButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(adminRemoveRecipeButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap())
         );
         searhRecipePanelLayout.setVerticalGroup(
             searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -635,7 +713,12 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(categoriesFilterSearchLabel)
                     .addComponent(recipeNameSearchLabel))
                 .addGap(18, 18, 18)
-                .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(searhRecipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(recipesFoundComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 587, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(searhRecipePanelLayout.createSequentialGroup()
+                        .addComponent(rateOrRemoveButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(adminRemoveRecipeButton)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -680,6 +763,17 @@ public class AppForm extends javax.swing.JFrame {
             }
         });
 
+        backButton3.setForeground(new java.awt.Color(255, 255, 255));
+        backButton3.setText("<  Back");
+        backButton3.setToolTipText("");
+        backButton3.setBorderPainted(false);
+        backButton3.setContentAreaFilled(false);
+        backButton3.setFocusCycleRoot(true);
+        backButton3.setFocusPainted(false);
+        backButton3.setFocusable(false);
+
+        ratedMessage.setForeground(new java.awt.Color(255, 255, 255));
+
         javax.swing.GroupLayout rateRecipesPanelLayout = new javax.swing.GroupLayout(rateRecipesPanel);
         rateRecipesPanel.setLayout(rateRecipesPanelLayout);
         rateRecipesPanelLayout.setHorizontalGroup(
@@ -688,28 +782,36 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(rateRecipesTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(rateRecipesPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(rateRecipesPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 977, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(rateRecipesPanelLayout.createSequentialGroup()
-                        .addGap(387, 387, 387)
+                        .addComponent(jScrollPane1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rateValueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(100, 100, 100)
-                        .addComponent(rateRecipeButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(rateRecipeButton))
+                    .addGroup(rateRecipesPanelLayout.createSequentialGroup()
+                        .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(ratedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(backButton3))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         rateRecipesPanelLayout.setVerticalGroup(
             rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(rateRecipesPanelLayout.createSequentialGroup()
                 .addComponent(rateRecipesTittlePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rateValueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rateRecipeButton))
-                .addContainerGap(393, Short.MAX_VALUE))
+                .addGap(23, 23, 23)
+                .addComponent(backButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(rateRecipesPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(rateValueSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rateRecipeButton))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ratedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(521, Short.MAX_VALUE))
         );
 
         jPanelCard.add(rateRecipesPanel, "rateRecipesCard");
@@ -813,7 +915,7 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(jLabel3))
                 .addGap(25, 25, 25)
                 .addComponent(addMenuButton)
-                .addContainerGap(215, Short.MAX_VALUE))
+                .addContainerGap(227, Short.MAX_VALUE))
         );
 
         jPanelCard.add(createMenuPanel, "menuCard");
@@ -876,7 +978,7 @@ public class AppForm extends javax.swing.JFrame {
         rateRecipesButton.setBackground(new java.awt.Color(78, 204, 163));
         rateRecipesButton.setFont(new java.awt.Font("Segoe UI Light", 0, 13)); // NOI18N
         rateRecipesButton.setForeground(new java.awt.Color(57, 62, 70));
-        rateRecipesButton.setText("Rate Recipes");
+        rateRecipesButton.setText("Rated Recipes");
         rateRecipesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rateRecipesButtonActionPerformed(evt);
@@ -913,7 +1015,7 @@ public class AppForm extends javax.swing.JFrame {
         buttonsPanelLayout.setVerticalGroup(
             buttonsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(buttonsPanelLayout.createSequentialGroup()
-                .addContainerGap(151, Short.MAX_VALUE)
+                .addContainerGap(200, Short.MAX_VALUE)
                 .addComponent(logInButton)
                 .addGap(18, 18, 18)
                 .addComponent(createRecipeButton)
@@ -960,6 +1062,7 @@ public class AppForm extends javax.swing.JFrame {
 
     private void createRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createRecipeButtonActionPerformed
         clearRecipe();
+        recipeWrongLabel.setVisible(false);
         cardLayout.show(jPanelCard, "recipeCard");
         rateRecipesButton.setEnabled(false);
     }//GEN-LAST:event_createRecipeButtonActionPerformed
@@ -980,16 +1083,20 @@ public class AppForm extends javax.swing.JFrame {
             price += ((Ingredient) ingredientsModel.getElementAt(ingredientsIndex)).getPrice();
         }
         
-        int[] categoriesIndices = categoriesList.getSelectedIndices();
-        ArrayList<FinalCategory>recipeCategories = new ArrayList();
+        int[] categoriesIndices = notFinalCategoriesList.getSelectedIndices();
+        ArrayList<Category>recipeCategories = new ArrayList();
         for (int categoriesIndex : categoriesIndices) {
-            recipeCategories.add((FinalCategory) categoriesModel.getElementAt(categoriesIndex));
+            recipeCategories.add((NotFinalCategory)notFinalCategoriesModel.getElementAt(categoriesIndex));
         }
-        
-        loggedUser.addRecipe(new Recipe(name, steps, price, localTime, recipeIngredients, recipeCategories));
-        cardLayout.show(jPanelCard, "myRecipesCard");
-        setMyRecipes();
-        
+        for (int selectedIndex : finalCategoriesList.getSelectedIndices()) {
+            recipeCategories.add((FinalCategory) finalCategoriesModel.getElementAt(selectedIndex));
+        }
+        Recipe recipe = new Recipe(name, steps, price, localTime, recipeIngredients, recipeCategories);
+        if(!loggedUser.addRecipe(recipe)) recipeWrongLabel.setVisible(true);
+        else{
+            cardLayout.show(jPanelCard, "myRecipesCard");
+            setMyRecipes();
+        }
         
     }//GEN-LAST:event_createRecipeActionPerformed
 
@@ -1006,12 +1113,14 @@ public class AppForm extends javax.swing.JFrame {
         for (User user : users) {
             if(user.getUserName().equals(userName) && user.getPassword().equals(password)){
                 clearLogIn();
-                if(user instanceof Client) { //client
+                if(user instanceof Client) { 
                     loggedUser = (Client) user;
+                    adminRemoveRecipeButton.setVisible(false);
                     cardLayout.show(jPanelCard, "recipeCard");
                 }else {
                     loggedUser = (Admin) user;
-                    cardLayout.show(jPanelCard, "");
+                    adminRemoveRecipeButton.setVisible(true);
+                    cardLayout.show(jPanelCard, "searchRecipesCard");
                 }
                 setButtonsConfiguration();    
                 credentialsWrongLabel.setVisible(false);
@@ -1042,7 +1151,10 @@ public class AppForm extends javax.swing.JFrame {
         rateRecipesButton.setEnabled(false);
         myRecipesButton.setEnabled(false);
         logOutButton.setEnabled(false);
-        
+        rateOrRemoveButton.setEnabled(false);
+        adminRemoveRecipeButton.setEnabled(false);
+        ratedMessage.setText("");
+        clearModels();
         //Volvemos al panel de iniciar sesión
         cardLayout.show(jPanelCard, "logInCard");
         
@@ -1055,8 +1167,8 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_myRecipesButtonActionPerformed
 
     private void searchRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRecipeButtonActionPerformed
+        initSearchList();
         cardLayout.show(jPanelCard, "searchRecipesCard");
-        rateRecipesButton.setEnabled(true);
     }//GEN-LAST:event_searchRecipeButtonActionPerformed
 
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
@@ -1067,16 +1179,25 @@ public class AppForm extends javax.swing.JFrame {
             getRecipesByFilter(recipeName, filterFC);
         } else {
             NotFinalCategory filterNFC = (NotFinalCategory) filters.getSelectedItem();
+            getRecipesByFilter(recipeName, filterNFC);
             for (FinalCategory fC : filterNFC.getSubCategories()) {
                 getRecipesByFilter(recipeName, fC);
             }
         }
+        if(recipesFoundList.isSelectionEmpty()){
+            adminRemoveRecipeButton.setEnabled(false);
+            rateOrRemoveButton.setEnabled(false);
+        }
     }//GEN-LAST:event_searchButtonActionPerformed
 
-    private void getRecipesByFilter(String recipeName, FinalCategory fC) {
+    private User userToRateOrRemove;
+    private Recipe recipeToRateOrRemove;
+    private void getRecipesByFilter(String recipeName, Category fC) {
         for (User user : users) {
             for (Recipe recipe : user.getRecipes()) {
                 if(recipe.getName().contains(recipeName) && recipe.containsCategory(fC.getName())){
+                    userToRateOrRemove = user;
+                    recipeToRateOrRemove = recipe;
                     this.recipeFoundModel.addElement("Creada por " + user.getUserName() + ": " + recipe);
                 }
             }
@@ -1086,10 +1207,10 @@ public class AppForm extends javax.swing.JFrame {
     private void rateRecipesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipesButtonActionPerformed
         
         if(!(recipesFoundList.isSelectionEmpty())) {
-            int[] recipeToRateIndex = recipesFoundList.getSelectedIndices();
-            recipeToRate.addElement(recipeFoundModel.getElementAt(recipeToRateIndex[0]));
-            selectedRecipeToRateList.setModel(recipeToRate);
-            selectedRecipeToRateList.setSelectedIndex(0);
+            int recipeToRateIndex = recipesFoundList.getSelectedIndex();
+            recipeToRateModel.clear();
+            recipeToRateModel.addElement(recipeFoundModel.getElementAt(recipeToRateIndex));
+            selectedRecipeToRateList.setModel(recipeToRateModel);
             cardLayout.show(jPanelCard, "rateRecipesCard");
         } else {
             rateErrorLabel.setVisible(true);
@@ -1144,8 +1265,51 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_removeRecipeButtonActionPerformed
 
     private void rateRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipeButtonActionPerformed
-        // TODO add your handling code here:
+        if(loggedUser.rateRecipe(userToRateOrRemove, recipeToRateOrRemove, (int) rateValueSpinner.getValue()) == true){
+            ratedMessage.setForeground(new java.awt.Color(255, 255, 255));
+            ratedMessage.setText("Recipe rated");
+
+        }else{
+            ratedMessage.setForeground(new java.awt.Color(255, 0, 0));
+            ratedMessage.setText("It is not allowed to rate your own recipe");
+        }
     }//GEN-LAST:event_rateRecipeButtonActionPerformed
+
+    private void recipesFoundListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_recipesFoundListMouseClicked
+        if(recipesFoundList.isSelectionEmpty()) {
+            rateOrRemoveButton.setEnabled(false);
+            adminRemoveRecipeButton.setEnabled(false);
+        }else {
+            rateOrRemoveButton.setEnabled(true);
+            adminRemoveRecipeButton.setEnabled(true);
+        }
+    }//GEN-LAST:event_recipesFoundListMouseClicked
+
+    private void rateOrRemoveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateOrRemoveButtonActionPerformed
+        cardLayout.show(jPanelCard, "rateRecipesCard");
+        recipeToRateModel.clear();
+        recipeToRateModel.addElement(recipeToRateOrRemove);
+        selectedRecipeToRateList.setModel(recipeToRateModel);
+        cardLayout.show(jPanelCard, "rateRecipesCard");
+        
+    }//GEN-LAST:event_rateOrRemoveButtonActionPerformed
+
+    private void adminRemoveRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminRemoveRecipeButtonActionPerformed
+        userToRateOrRemove.removeRecipe(recipeToRateOrRemove);
+    }//GEN-LAST:event_adminRemoveRecipeButtonActionPerformed
+
+    private void notFinalCategoriesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notFinalCategoriesListMouseClicked
+        if(!notFinalCategoriesList.isSelectionEmpty()){
+            for (int index: notFinalCategoriesList.getSelectedIndices()) {
+                NotFinalCategory notFinalCategory = (NotFinalCategory) notFinalCategoriesModel.getElementAt(index);
+                for (FinalCategory subCategory : notFinalCategory.getSubCategories()) {
+                    finalCategoriesModel.addElement(subCategory);
+                }
+            }
+        }else{
+            finalCategoriesModel.clear();
+        }
+    }//GEN-LAST:event_notFinalCategoriesListMouseClicked
 
     private void clearRecipe() {
         recipeNameText.setText("");
@@ -1153,7 +1317,7 @@ public class AppForm extends javax.swing.JFrame {
         cookTime.setTime(new Date(0,0,0));
         priceText.setText("");
         ingredientsList.clearSelection();
-        categoriesList.clearSelection();
+        notFinalCategoriesList.clearSelection();
     }
 
     /**
@@ -1193,11 +1357,16 @@ public class AppForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMenuButton;
+    private javax.swing.JButton adminRemoveRecipeButton;
+    private javax.swing.JButton backButton;
+    private javax.swing.JButton backButton1;
+    private javax.swing.JButton backButton2;
+    private javax.swing.JButton backButton3;
     private javax.swing.JPanel buttonsPanel;
     private javax.swing.JLabel categoriesFilterSearchLabel;
     private javax.swing.JLabel categoriesLabel;
-    private javax.swing.JList<String> categoriesList;
     private javax.swing.JScrollPane categoriesScrollPane;
+    private javax.swing.JScrollPane categoriesScrollPane1;
     private lu.tudor.santec.jtimechooser.JTimeChooser cookTime;
     private javax.swing.JLabel cookTimeLabel;
     private javax.swing.JButton createMenuButton;
@@ -1208,6 +1377,7 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JButton createRecipeButton;
     private javax.swing.JLabel credentialsWrongLabel;
     private javax.swing.JComboBox<String> filters;
+    private javax.swing.JList<String> finalCategoriesList;
     private javax.swing.JLabel ingredientsLabel;
     private javax.swing.JList<String> ingredientsList;
     private javax.swing.JScrollPane ingredientsScrollPane;
@@ -1234,23 +1404,27 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JList<String> myRecipesToAddToMenuList;
     private javax.swing.JScrollPane myRecipesToAddToMenuScrollBar;
     private javax.swing.JLabel nameRecipeLabel;
+    private javax.swing.JList<String> notFinalCategoriesList;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceText;
     private javax.swing.JLabel rateErrorLabel;
+    private javax.swing.JButton rateOrRemoveButton;
     private javax.swing.JButton rateRecipeButton;
     private javax.swing.JButton rateRecipesButton;
     private javax.swing.JPanel rateRecipesPanel;
     private javax.swing.JPanel rateRecipesTittlePanel;
     private javax.swing.JLabel rateTittleLPanelLabel;
     private javax.swing.JSpinner rateValueSpinner;
+    private javax.swing.JLabel ratedMessage;
     private javax.swing.JLabel recipeNameSearchLabel;
     private javax.swing.JTextField recipeNameText;
     private javax.swing.JTextField recipeNameToSearch;
     private javax.swing.JPanel recipePanel;
     private javax.swing.JPanel recipeTittlePanel;
     private javax.swing.JLabel recipeTittlePanelLabel;
+    private javax.swing.JLabel recipeWrongLabel;
     private javax.swing.JScrollPane recipesFoundComboBox;
     private javax.swing.JList<String> recipesFoundList;
     private javax.swing.JLabel recipesLabel;

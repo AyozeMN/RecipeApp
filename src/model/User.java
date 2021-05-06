@@ -19,8 +19,14 @@ public abstract class User {
         this.menus = new ArrayList();
     }    
 
-    public void addRecipe(Recipe recipe){
+    public boolean addRecipe(Recipe recipe){
+        for (Recipe recipe1 : recipes) {
+           if(recipe1.equals(recipe)) {
+               return false;
+           }
+        }
         recipes.add(recipe);
+        return true;
     }
     
     public void removeRecipe(Recipe recipe){
@@ -47,6 +53,14 @@ public abstract class User {
         return menus;
     }
     
+    public Recipe getRecipe(Recipe recipe){
+        for (Recipe recipe1 : recipes) {
+            if(recipe1.equals(recipe))
+                return recipe1;
+        }
+        return null;
+    }
+    
     public String getUserName() {
         return userName;
     }
@@ -57,6 +71,16 @@ public abstract class User {
 
     public int getPhoneNumber() {
         return phoneNumber;
+    }
+    
+    public boolean rateRecipe(User user,Recipe recipe, int valoration){
+        if(getRecipe(recipe) == null){
+            if(user.getRecipe(recipe) != null){
+                user.getRecipe(recipe).setValorations(valoration);
+                return true;
+            }
+        }
+        return false;
     }
 
     

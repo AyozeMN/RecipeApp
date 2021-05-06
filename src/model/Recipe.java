@@ -2,17 +2,18 @@ package model;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Recipe {
     String name;
     String steps;
     double price;
     LocalTime cookTime;
-    ArrayList<Double> valorations;
+    ArrayList<Integer> valorations;
     ArrayList<Ingredient> ingredients;
-    ArrayList<FinalCategory> categories;
+    ArrayList<Category> categories;
 
-    public Recipe(String name, String steps, double price, LocalTime cookTime, ArrayList<Ingredient> ingredients, ArrayList<FinalCategory> categories) {
+    public Recipe(String name, String steps, double price, LocalTime cookTime, ArrayList<Ingredient> ingredients, ArrayList<Category> categories) {
         this.name = name;
         this.steps = steps;
         this.price = price;
@@ -38,7 +39,7 @@ public class Recipe {
         return cookTime;
     }
 
-    public ArrayList<Double> getValorations() {
+    public ArrayList<Integer> getValorations() {
         return valorations;
     }
 
@@ -46,30 +47,61 @@ public class Recipe {
         return ingredients;
     }
 
-    public ArrayList<FinalCategory> getCategories() {
+    public ArrayList<Category> getCategories() {
         return categories;
     }
 
     public boolean containsCategory(String categoryName){
-        for (FinalCategory cat : categories) {
+        for (Category cat : categories) {
             if(cat.getName().equals(categoryName)) return true;
         }
         return false;
     }
     
-    public double getOverageRating(){
-        double overage = 0;
-        for (Double valoration : valorations) {
-            overage += valoration;
+    public String getOverageRating(){
+        int count = 0;
+        double average = 0;
+        for (Integer valoration : valorations) {
+            count++;
+            average += valoration;
         }
-        return overage/valorations.size();
+        if(count == 0) return "-";
+        else return String.valueOf(average/valorations.size());
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.name);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Recipe other = (Recipe) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        return true;
+    }
+
+    public void setValorations(Integer valoration) {
+        valorations.add(valoration);
+    }
+
+    
     
     @Override
     public String toString() {
         return name + ", steps=" + steps + ", price=" + price + ", cookTime=" + cookTime + ", valorations=" + valorations + ", ingredients=" + ingredients + ", categories=" + categories + "\n";
     }
-    
-    
-    
 }
