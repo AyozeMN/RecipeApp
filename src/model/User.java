@@ -7,12 +7,10 @@ public abstract class User {
     String password;
     String email;
     int phoneNumber;
-    int userRole;
     ArrayList<Recipe> recipes;
     ArrayList<Menu> menus;
     
-    public User(int userRole, String userName, String password, String email, int phoneNumber) {
-        this.userRole = userRole;
+    public User(String userName, String password, String email, int phoneNumber) {
         this.userName = userName;
         this.password = password;
         this.email = email;
@@ -20,10 +18,6 @@ public abstract class User {
         this.recipes = new ArrayList();
         this.menus = new ArrayList();
     }    
-
-    public void setUserRole(int userRole) {
-        this.userRole = userRole;
-    }
 
     public void addRecipe(Recipe recipe){
         recipes.add(recipe);
@@ -65,9 +59,5 @@ public abstract class User {
         return phoneNumber;
     }
 
-    public int getUserRole() {
-        return userRole;
-    }
-    
     
 }

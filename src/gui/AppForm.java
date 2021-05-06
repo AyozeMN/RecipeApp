@@ -8,11 +8,10 @@ import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.ListSelectionModel;
+import model.Admin;
 import model.Category;
 import model.Client;
 import model.FinalCategory;
@@ -37,7 +36,7 @@ public class AppForm extends javax.swing.JFrame {
     private ArrayList<Ingredient>ingredients;
     private ArrayList<FinalCategory>categories;
     private ArrayList<NotFinalCategory>notFinalCategories;
-    private ArrayList<Client>clients;
+    private ArrayList<User>users;
     
     private final DefaultListModel ingredientsModel = new DefaultListModel();
     private final DefaultListModel categoriesModel = new DefaultListModel();
@@ -88,7 +87,7 @@ public class AppForm extends javax.swing.JFrame {
         this.ingredients = new ArrayList();
         this.categories = new ArrayList();
         this.notFinalCategories = new ArrayList();
-        this.clients = new ArrayList();
+        this.users = new ArrayList();
         
         initComponents();
        
@@ -104,7 +103,7 @@ public class AppForm extends javax.swing.JFrame {
         categoriesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         myRecipesToAddToMenuList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-        usersFile.loadFromFile(clients);
+        usersFile.loadFromFile(users);
         ingredientsFile.loadFromFile(ingredients);
         categoriesFile.loadFromFile(categories);
         notFinalCategoryFile.loadFromFile(notFinalCategories);
@@ -1004,25 +1003,32 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_logInUserButtonActionPerformed
 
     private boolean logIn(String userName, String password) {
-        for (Client client : clients) {
-            if(client.getUserName().equals(userName) && client.getPassword().equals(password)){
+        for (User user : users) {
+            if(user.getUserName().equals(userName) && user.getPassword().equals(password)){
                 clearLogIn();
-                if(client.getUserRole() == 0) { //client
-                    loggedUser = client;
-                    logInButton.setEnabled(false);
-                    createRecipeButton.setEnabled(true);
-                    createMenuButton.setEnabled(true);
-                    searchRecipeButton.setEnabled(true);
-                    rateRecipesButton.setEnabled(false);
-                    myRecipesButton.setEnabled(true);
-                    logOutButton.setEnabled(true);
+                if(user instanceof Client) { //client
+                    loggedUser = (Client) user;
                     cardLayout.show(jPanelCard, "recipeCard");
+                }else {
+                    loggedUser = (Admin) user;
+                    cardLayout.show(jPanelCard, "");
                 }
+                setButtonsConfiguration();    
                 credentialsWrongLabel.setVisible(false);
                 return true;
             }
         }
         return false;
+    }
+
+    private void setButtonsConfiguration() {
+        logInButton.setEnabled(false);
+        createRecipeButton.setEnabled(true);
+        createMenuButton.setEnabled(true);
+        searchRecipeButton.setEnabled(true);
+        rateRecipesButton.setEnabled(false);
+        myRecipesButton.setEnabled(true);
+        logOutButton.setEnabled(true);
     }
 
     private void logOutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logOutButtonActionPerformed
@@ -1068,10 +1074,10 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_searchButtonActionPerformed
 
     private void getRecipesByFilter(String recipeName, FinalCategory fC) {
-        for (Client client : clients) {
-            for (Recipe recipe : client.getRecipes()) {
+        for (User user : users) {
+            for (Recipe recipe : user.getRecipes()) {
                 if(recipe.getName().contains(recipeName) && recipe.containsCategory(fC.getName())){
-                    this.recipeFoundModel.addElement("Creada por " + client.getUserName() + ": " + recipe);
+                    this.recipeFoundModel.addElement("Creada por " + user.getUserName() + ": " + recipe);
                 }
             }
         }

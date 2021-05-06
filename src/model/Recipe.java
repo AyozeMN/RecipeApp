@@ -57,10 +57,19 @@ public class Recipe {
         return false;
     }
     
+    public double getOverageRating(){
+        double overage = 0;
+        for (Double valoration : valorations) {
+            overage += valoration;
+        }
+        return overage/valorations.size();
+    }
+    
     @Override
     public String toString() {
         return name + ", steps=" + steps + ", price=" + price + ", cookTime=" + cookTime + ", valorations=" + valorations + ", ingredients=" + ingredients + ", categories=" + categories + "\n";
     }
+    
     
     
 }
