@@ -29,12 +29,12 @@ public class RecipeApp {
         appForm.usersFile = usersFile;
         appForm.recipeFile = recipeFile;
         
-        ArrayList<User>users = recipeFile.loadFromFile();
+        /*ArrayList<User>users = recipeFile.loadFromFile();
         for (User user : users) {
             for (Recipe recipe : user.getRecipes()) {
                 System.out.println(recipe.toString());
             }
-        }
+        }*/
     }
     
     

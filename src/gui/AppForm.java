@@ -58,9 +58,11 @@ public class AppForm extends javax.swing.JFrame {
     }
     
     private void initSearchList(){
+        recipeFoundModel.clear();
+        recipeFile.loadFromFile(users);
         for (User user : users) {
             for (Recipe recipe : user.getRecipes()) {
-                recipeFoundModel.addElement(recipe);
+                recipeFoundModel.addElement(user.getUserName() + ": " + recipe);
             }
         }
     }
@@ -103,9 +105,9 @@ public class AppForm extends javax.swing.JFrame {
     private void initFiltersComboBox(){
         for (NotFinalCategory notFinalCategory : notFinalCategories) {
             filterModel.addElement(notFinalCategory);
-        }
-        for (FinalCategory category : finalCategories) {
-            filterModel.addElement(category);
+            for (FinalCategory subCategory : notFinalCategory.getSubCategories()) {
+                filterModel.addElement(subCategory);
+            }
         }
     }
     
@@ -142,6 +144,7 @@ public class AppForm extends javax.swing.JFrame {
 //        initFinalCategoriesList();
         initNotFinalCategoriesList();
         initFiltersComboBox();
+        initSearchList();
         
         super.setSize(1280, 720);
         
@@ -1135,6 +1138,7 @@ public class AppForm extends javax.swing.JFrame {
                 }
                 setButtonsConfiguration();    
                 credentialsWrongLabel.setVisible(false);
+                setMyRecipes();
                 return true;
             }
         }
@@ -1191,9 +1195,6 @@ public class AppForm extends javax.swing.JFrame {
         } else {
             NotFinalCategory filterNFC = (NotFinalCategory) filters.getSelectedItem();
             getRecipesByFilter(recipeName, filterNFC);
-            for (FinalCategory fC : filterNFC.getSubCategories()) {
-                getRecipesByFilter(recipeName, fC);
-            }
         }
         if(recipesFoundList.isSelectionEmpty()){
             adminRemoveRecipeButton.setEnabled(false);
@@ -1209,7 +1210,7 @@ public class AppForm extends javax.swing.JFrame {
                 if(recipe.getName().contains(recipeName) && recipe.containsCategory(fC.getName())){
                     userToRateOrRemove = user;
                     recipeToRateOrRemove = recipe;
-                    this.recipeFoundModel.addElement("Creada por " + user.getUserName() + ": " + recipe);
+                    this.recipeFoundModel.addElement(user.getUserName() + ": " + recipe);
                 }
             }
         }
@@ -1273,6 +1274,7 @@ public class AppForm extends javax.swing.JFrame {
         for (Recipe recipe : loggedUser.getRecipes()) {
             myRecipesModel.addElement(recipe);
         }
+        
     }//GEN-LAST:event_removeRecipeButtonActionPerformed
 
     private void rateRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipeButtonActionPerformed
@@ -1290,9 +1292,20 @@ public class AppForm extends javax.swing.JFrame {
         if(recipesFoundList.isSelectionEmpty()) {
             rateOrRemoveButton.setEnabled(false);
             adminRemoveRecipeButton.setEnabled(false);
+            
         }else {
             rateOrRemoveButton.setEnabled(true);
             adminRemoveRecipeButton.setEnabled(true);
+            String userNameSelected = recipesFoundList.getSelectedValue().substring(0,recipesFoundList.getSelectedValue().indexOf(":"));
+            String recipeNameSelected = recipesFoundList.getSelectedValue().substring(recipesFoundList.getSelectedValue().indexOf(":")+2,recipesFoundList.getSelectedValue().indexOf(","));
+            System.out.println(userNameSelected);
+            System.out.println(recipeNameSelected);
+            for (User user : users) {
+                if(user.getUserName().equals(userNameSelected)) {
+                    userToRateOrRemove = user;
+                    recipeToRateOrRemove = user.getRecipeByName(recipeNameSelected);
+                }
+            }
         }
     }//GEN-LAST:event_recipesFoundListMouseClicked
 

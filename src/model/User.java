@@ -61,6 +61,14 @@ public abstract class User {
         return null;
     }
     
+    public Recipe getRecipeByName(String name) {
+        for (Recipe recipe1 : recipes) {
+            if(recipe1.getName().equals(name))
+                return recipe1;
+        }
+        return null;
+    }
+    
     public String getUserName() {
         return userName;
     }
