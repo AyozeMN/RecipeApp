@@ -247,6 +247,7 @@ public class AppForm extends javax.swing.JFrame {
         myMenusList = new javax.swing.JList<>();
         menuName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        errorCreateMenuLabel = new javax.swing.JLabel();
         buttonsPanel = new javax.swing.JPanel();
         logInButton = new javax.swing.JButton();
         logOutButton = new javax.swing.JButton();
@@ -480,7 +481,7 @@ public class AppForm extends javax.swing.JFrame {
             recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(recipeTittlePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(recipePanelLayout.createSequentialGroup()
-                .addContainerGap(293, Short.MAX_VALUE)
+                .addContainerGap(148, Short.MAX_VALUE)
                 .addGroup(recipePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(ingredientsLabel, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(cookTimeLabel, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -504,7 +505,7 @@ public class AppForm extends javax.swing.JFrame {
                                     .addComponent(categoriesScrollPane, javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(ingredientsScrollPane, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addGap(18, 18, 18)
-                                .addComponent(categoriesScrollPane1))
+                                .addComponent(categoriesScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
                             .addComponent(cookTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(86, 86, 86))
                     .addGroup(recipePanelLayout.createSequentialGroup()
@@ -902,8 +903,17 @@ public class AppForm extends javax.swing.JFrame {
         });
         myMenusScrollBar.setViewportView(myMenusList);
 
+        menuName.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                menuNameKeyPressed(evt);
+            }
+        });
+
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Menu name:");
+
+        errorCreateMenuLabel.setForeground(new java.awt.Color(255, 0, 0));
+        errorCreateMenuLabel.setText("You have to select at least 2 recipes and give it a name to create it");
 
         javax.swing.GroupLayout createMenuPanelLayout = new javax.swing.GroupLayout(createMenuPanel);
         createMenuPanel.setLayout(createMenuPanelLayout);
@@ -914,19 +924,22 @@ public class AppForm extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(createMenuPanelLayout.createSequentialGroup()
                 .addGap(55, 55, 55)
-                .addGroup(createMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(createMenuPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(58, 58, 58)
-                        .addComponent(menuName))
-                    .addComponent(recipesLabel)
-                    .addComponent(myRecipesToAddToMenuScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addMenuButton))
-                .addGap(161, 161, 161)
                 .addGroup(createMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(removeMenuButton)
-                    .addComponent(menusLabel)
-                    .addComponent(myMenusScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(errorCreateMenuLabel)
+                    .addGroup(createMenuPanelLayout.createSequentialGroup()
+                        .addGroup(createMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(createMenuPanelLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(58, 58, 58)
+                                .addComponent(menuName))
+                            .addComponent(recipesLabel)
+                            .addComponent(myRecipesToAddToMenuScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(addMenuButton))
+                        .addGap(161, 161, 161)
+                        .addGroup(createMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(removeMenuButton)
+                            .addComponent(menusLabel)
+                            .addComponent(myMenusScrollBar, javax.swing.GroupLayout.PREFERRED_SIZE, 357, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         createMenuPanelLayout.setVerticalGroup(
@@ -946,7 +959,9 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(removeMenuButton)
                     .addComponent(menuName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(25, 25, 25)
+                .addGap(3, 3, 3)
+                .addComponent(errorCreateMenuLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(addMenuButton)
                 .addContainerGap(229, Short.MAX_VALUE))
         );
@@ -1229,6 +1244,7 @@ public class AppForm extends javax.swing.JFrame {
 
     private void createMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMenuButtonActionPerformed
         addMenuButton.setEnabled(false);
+        errorCreateMenuLabel.setVisible(false);
         myRecipesToAddToMenuModel.clear();
         cardLayout.show(jPanelCard, "menuCard");
         for (Recipe recipe : loggedUser.getRecipes()) {
@@ -1239,7 +1255,8 @@ public class AppForm extends javax.swing.JFrame {
     private void addMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMenuButtonActionPerformed
         myMenusModel.clear();
         int[] selectedIndices = myRecipesToAddToMenuList.getSelectedIndices();
-        if(selectedIndices.length>1) {
+        if(selectedIndices.length>1 && !(menuName.getText().equals(""))) {
+            errorCreateMenuLabel.setVisible(false);
             Menu menu = new Menu(menuName.getText());
             for (int selectedIndex : selectedIndices) {
                 Recipe recipe = (Recipe) myRecipesToAddToMenuModel.getElementAt(selectedIndex);
@@ -1250,8 +1267,9 @@ public class AppForm extends javax.swing.JFrame {
             for (Menu userMenu : loggedUser.getMenus()) {
                 myMenusModel.addElement(userMenu);
             }
+        } else {
+            errorCreateMenuLabel.setVisible(true);
         }
-        
     }//GEN-LAST:event_addMenuButtonActionPerformed
 
     private void removeMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeMenuButtonActionPerformed
@@ -1373,9 +1391,14 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_myRecipesListMouseClicked
 
     private void myRecipesToAddToMenuListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myRecipesToAddToMenuListMouseClicked
-        if(myRecipesToAddToMenuList.getSelectedIndices().length>1) addMenuButton.setEnabled(true);
+        if(myRecipesToAddToMenuList.getSelectedIndices().length>1 && !(menuName.getText().equals(""))) addMenuButton.setEnabled(true);
         else addMenuButton.setEnabled(false);
     }//GEN-LAST:event_myRecipesToAddToMenuListMouseClicked
+
+    private void menuNameKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_menuNameKeyPressed
+        if(myRecipesToAddToMenuList.getSelectedIndices().length>1 && !(menuName.getText().equals(""))) addMenuButton.setEnabled(true);
+        else addMenuButton.setEnabled(false);
+    }//GEN-LAST:event_menuNameKeyPressed
 
     private void clearRecipe() {
         recipeNameText.setText("");
@@ -1441,6 +1464,7 @@ public class AppForm extends javax.swing.JFrame {
     private javax.swing.JButton createRecipe;
     private javax.swing.JButton createRecipeButton;
     private javax.swing.JLabel credentialsWrongLabel;
+    private javax.swing.JLabel errorCreateMenuLabel;
     private javax.swing.JComboBox<String> filters;
     private javax.swing.JList<String> finalCategoriesList;
     private javax.swing.JLabel ingredientsLabel;
