@@ -7,4 +7,8 @@ public class Admin extends User{
         super(userName, password, email, phoneNumber);
     }
     
+    public void removeRecipeOfUser(User user, Recipe recipe){
+        user.removeRecipe(recipe);
+    }
+    
 }

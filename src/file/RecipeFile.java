@@ -64,7 +64,7 @@ public class RecipeFile {
 
                     pw.write(user.getUserName() + ":");
 
-                    pw.write(recipe.getName() + ":" + recipe.getSteps() + ":" + recipe.getPrice() + ":" + recipe.getCookTime().toString() + ":");
+                    pw.write(recipe.getName() + ":" + recipe.getSteps().replace("\n", "\u00a0") + ":" + recipe.getPrice() + ":" + recipe.getCookTime().toString() + ":");
                     for (Ingredient ingredient : recipe.getIngredients()) {
                         pw.write(ingredient.getName() + "=" + ingredient.getPrice() + ",");
                     }
@@ -73,7 +73,7 @@ public class RecipeFile {
                         if(category instanceof NotFinalCategory){
                             pw.write(((NotFinalCategory) category).toString() + ";");
                         }else{
-                            pw.write("-" + ((FinalCategory)category).toString());
+                            pw.write(((FinalCategory)category).toString() + "-");
                         }
                     }
                     pw.write("\n");

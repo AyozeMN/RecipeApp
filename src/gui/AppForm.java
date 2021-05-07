@@ -1131,7 +1131,7 @@ public class AppForm extends javax.swing.JFrame {
             recipeWrongLabel.setVisible(true);
             recipeWrongLabel.setText("Recipe must be complete to be created");
         }
-        
+        recipePrice.setText("");
     }//GEN-LAST:event_createRecipeActionPerformed
 
     private void logInUserButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logInUserButtonActionPerformed
@@ -1332,7 +1332,14 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_rateOrRemoveButtonActionPerformed
 
     private void adminRemoveRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adminRemoveRecipeButtonActionPerformed
-        userToRateOrRemove.removeRecipe(recipeToRateOrRemove);
+        ((Admin)loggedUser).removeRecipeOfUser(userToRateOrRemove,recipeToRateOrRemove);
+        recipeFile.saveToFile(users);
+        recipeFoundModel.clear();
+        for (User user : users) {
+            for (Recipe recipe : user.getRecipes()) {
+                recipeFoundModel.addElement(recipe);
+            }
+        }
     }//GEN-LAST:event_adminRemoveRecipeButtonActionPerformed
 
     private void notFinalCategoriesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_notFinalCategoriesListMouseClicked

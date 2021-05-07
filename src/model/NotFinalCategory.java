@@ -18,10 +18,4 @@ public class NotFinalCategory extends Category{
         return subCategories;
     }
     
-    @Override
-    public String toString() {
-        return super.name;
-    }
-    
-    
 }

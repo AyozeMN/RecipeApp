@@ -1,5 +1,8 @@
-Cristina:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;Italian;------Cake-Cookie-Pasta
-prueba:ads:asd:1.0:23:58:salt=1.0,:-----Desert
-prueba:asddddddddddd:asd:1.0:00:02:sugar=1.0,:--Lunch
-prueba:ssssssssss:ssssssssssss:1.0:00:02:salt=1.0,:Lunch;Italian;--Pasta
-Carmen:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;------Cake-Cookie
+Cristina:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;Italian;Cake-Cookie-Pasta-
+prueba:prueba de receta:jejejeje:2.5:04:06:butter=0.5,eggs=0.5,garlic=1.5,:Desert;Vegetarian;Cookie-Cake-Vegetables-
+prueba:Pollo con curry:Calentamos el pollo.Añadimos el curry.Y lo servimos:3.5:02:02:sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,:Desert;Italian;Mexican;Spanish;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-Croquets-
+prueba:Receta de prueba 1:Step 1&nbspStep 2&nbspStep 3&nbsp:2.5:05:00:salt=1.0,sugar=1.0,butter=0.5,:Breakfast;Dinner;Lunch;Desert;Italian;Mexican;Spanish;Vegetarian;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-Croquets-
+prueba:Receta de ayo:Step 24&nbspStep 25:3.5:00:07:eggs=0.5,garlic=1.5,water=1.0,olive oil=0.5,:Lunch;Desert;Italian;Mexican;Spanish;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-Croquets-
+prueba:Receta cristi:alsdj&nbsplsakjd:4.5:00:02:salt=1.0,sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,:Breakfast;Dinner;Lunch;Desert;Italian;Cookie-Cake-Pasta-Pizza-
+prueba:carne:paso 2 paso 3 paso 4 :6.0:03:03:salt=1.0,sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,water=1.0,olive oil=0.5,:Breakfast;Dinner;Lunch;Desert;Italian;Mexican;Spanish;Vegetarian;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-
+Carmen:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;-Cake-Cookie-
