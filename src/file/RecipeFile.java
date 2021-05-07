@@ -1,6 +1,5 @@
 package file;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,9 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Admin;
 import model.Category;
-import model.Client;
 import model.FinalCategory;
 import model.Ingredient;
 import model.NotFinalCategory;
@@ -23,7 +20,7 @@ import model.User;
 
 public class RecipeFile {
 
-    public void saveToFile(User user, Recipe recipe){
+    /*public void saveToFile(User user, Recipe recipe){
         FileWriter fichero = null;
         PrintWriter pw = null;
         try {
@@ -54,7 +51,45 @@ public class RecipeFile {
                e2.printStackTrace();
             }
         }
-    }    
+    }   */
+    
+    public void saveToFile(ArrayList<User>users){
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        try {    
+            fichero = new FileWriter("Recipes.txt");
+            pw = new PrintWriter(fichero);
+            for (User user : users) {
+                for (Recipe recipe : user.getRecipes()) {
+
+                    pw.write(user.getUserName() + ":");
+
+                    pw.write(recipe.getName() + ":" + recipe.getSteps() + ":" + recipe.getPrice() + ":" + recipe.getCookTime().toString() + ":");
+                    for (Ingredient ingredient : recipe.getIngredients()) {
+                        pw.write(ingredient.getName() + "=" + ingredient.getPrice() + ",");
+                    }
+                    pw.write(":");
+                    for (Category category : recipe.getCategories()) {
+                        if(category instanceof NotFinalCategory){
+                            pw.write(((NotFinalCategory) category).toString() + ";");
+                        }else{
+                            pw.write("-" + ((FinalCategory)category).toString());
+                        }
+                    }
+                    pw.write("\n");
+                }
+            }    
+        } catch(IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (null != fichero) fichero.close();
+            } catch (IOException e2) {
+               e2.printStackTrace();
+            }
+        }
+    }
+    
     
     public void loadFromFile(ArrayList<User> users){
         try {

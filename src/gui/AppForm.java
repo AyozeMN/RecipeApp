@@ -585,11 +585,17 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(logInTittlePanelLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        myRecipesList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myRecipesListMouseClicked(evt);
+            }
+        });
         myRecipesScrollBar.setViewportView(myRecipesList);
 
         removeRecipeButton.setBackground(new java.awt.Color(78, 204, 163));
         removeRecipeButton.setForeground(new java.awt.Color(238, 238, 238));
         removeRecipeButton.setText("Remove recipe");
+        removeRecipeButton.setEnabled(false);
         removeRecipeButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeRecipeButtonActionPerformed(evt);
@@ -1111,7 +1117,8 @@ public class AppForm extends javax.swing.JFrame {
             cardLayout.show(jPanelCard, "myRecipesCard");
             setMyRecipes();
         }
-        recipeFile.saveToFile(loggedUser, recipe);
+//        recipeFile.saveToFile(loggedUser, recipe);
+        recipeFile.saveToFile(users);
         
     }//GEN-LAST:event_createRecipeActionPerformed
 
@@ -1258,7 +1265,10 @@ public class AppForm extends javax.swing.JFrame {
         for (Recipe recipe : loggedUser.getRecipes()) {
             myRecipesModel.addElement(recipe);
         }
-        
+        recipeFile.saveToFile(users);
+        if(myRecipesList.isSelectionEmpty()){
+            removeRecipeButton.setEnabled(false);
+        }
     }//GEN-LAST:event_removeRecipeButtonActionPerformed
 
     private void rateRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipeButtonActionPerformed
@@ -1339,6 +1349,11 @@ public class AppForm extends javax.swing.JFrame {
             removeMenuButton.setEnabled(true);
         }else removeMenuButton.setEnabled(false);
     }//GEN-LAST:event_myMenusListMouseClicked
+
+    private void myRecipesListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myRecipesListMouseClicked
+        if(myRecipesList.isSelectionEmpty()) removeRecipeButton.setEnabled(false);
+        else removeRecipeButton.setEnabled(true);
+    }//GEN-LAST:event_myRecipesListMouseClicked
 
     private void clearRecipe() {
         recipeNameText.setText("");
