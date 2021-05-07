@@ -84,7 +84,7 @@ public class AppForm extends javax.swing.JFrame {
     
     private void initNotFinalCategoriesList(){
         for (NotFinalCategory notFinalCategory : notFinalCategories) {
-            notFinalCategoriesModel.addElement(notFinalCategory);
+            if(!notFinalCategory.getName().equals(" ")) notFinalCategoriesModel.addElement(notFinalCategory);
         }
     }
  

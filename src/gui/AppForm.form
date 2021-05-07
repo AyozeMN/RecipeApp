@@ -272,7 +272,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="recipeTittlePanel" alignment="0" max="32767" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <EmptySpace pref="293" max="32767" attributes="0"/>
+                          <EmptySpace pref="148" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="ingredientsLabel" alignment="1" min="-2" max="-2" attributes="0"/>
                               <Component id="cookTimeLabel" alignment="1" min="-2" max="-2" attributes="0"/>
@@ -299,7 +299,7 @@
                                               <Component id="ingredientsScrollPane" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="categoriesScrollPane1" max="32767" attributes="0"/>
+                                          <Component id="categoriesScrollPane1" pref="113" max="32767" attributes="0"/>
                                       </Group>
                                       <Component id="cookTime" min="-2" max="-2" attributes="0"/>
                                   </Group>

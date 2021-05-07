@@ -5,4 +5,5 @@ prueba:Receta de prueba 1:Step 1&nbspStep 2&nbspStep 3&nbsp:2.5:05:00:salt=1.0,s
 prueba:Receta de ayo:Step 24&nbspStep 25:3.5:00:07:eggs=0.5,garlic=1.5,water=1.0,olive oil=0.5,:Lunch;Desert;Italian;Mexican;Spanish;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-Croquets-
 prueba:Receta cristi:alsdj&nbsplsakjd:4.5:00:02:salt=1.0,sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,:Breakfast;Dinner;Lunch;Desert;Italian;Cookie-Cake-Pasta-Pizza-
 prueba:carne:paso 2 paso 3 paso 4 :6.0:03:03:salt=1.0,sugar=1.0,butter=0.5,eggs=0.5,garlic=1.5,water=1.0,olive oil=0.5,:Breakfast;Dinner;Lunch;Desert;Italian;Mexican;Spanish;Vegetarian;Cookie-Cake-Pasta-Pizza-Tacos-Tortilla-
+prueba:desayuno:lkjad:3.0:00:04:salt=1.0,sugar=1.0,butter=0.5,eggs=0.5,:Breakfast;
 Carmen:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;-Cake-Cookie-
