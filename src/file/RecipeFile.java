@@ -20,39 +20,6 @@ import model.User;
 
 public class RecipeFile {
 
-    /*public void saveToFile(User user, Recipe recipe){
-        FileWriter fichero = null;
-        PrintWriter pw = null;
-        try {
-            fichero = new FileWriter("Recipes.txt", true);
-            pw = new PrintWriter(fichero);
-            
-            pw.write(user.getUserName() + ":");
-            
-            pw.write(recipe.getName() + ":" + recipe.getSteps() + ":" + recipe.getPrice() + ":" + recipe.getCookTime().toString() + ":");
-            for (Ingredient ingredient : recipe.getIngredients()) {
-                pw.write(ingredient.getName() + "=" + ingredient.getPrice() + ",");
-            }
-            pw.write(":");
-            for (Category category : recipe.getCategories()) {
-                if(category instanceof NotFinalCategory){
-                    pw.write(((NotFinalCategory) category).toString() + ";");
-                }else{
-                    pw.write("-" + ((FinalCategory)category).toString());
-                }
-            }
-            pw.write("\n");
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (null != fichero) fichero.close();
-            } catch (IOException e2) {
-               e2.printStackTrace();
-            }
-        }
-    }   */
-    
     public void saveToFile(ArrayList<User>users){
         FileWriter fichero = null;
         PrintWriter pw = null;

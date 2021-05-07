@@ -98,8 +98,6 @@ public class Recipe {
         valorations.add(valoration);
     }
 
-    
-    
     @Override
     public String toString() {
         return name + ", steps=" + steps + ", price=" + price + ", cookTime=" + cookTime + ", valorations=" + valorations + ", ingredients=" + ingredients + ", categories=" + categories + "\n";

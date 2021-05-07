@@ -28,6 +28,4 @@ public class Menu {
     public String toString() {
         return "Menu " + name + ": \n" + recipes;
     }
-    
-    
 }

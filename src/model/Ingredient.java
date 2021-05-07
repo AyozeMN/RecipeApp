@@ -21,6 +21,4 @@ public class Ingredient {
     public double getPrice() {
         return price;
     }
-
-    
 }

@@ -11,8 +11,6 @@ import model.Client;
 import model.User;
 
 public class UsersFile {
-    public void saveToFile(Object obj) {
-    }
 
     public void loadFromFile(ArrayList<User> users) {
         try {

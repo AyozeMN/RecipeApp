@@ -19,5 +19,4 @@ public class FinalCategory extends Category {
     void addRecipe(Recipe recipe) {
         recipes.add(recipe);
     }
-    
 }

@@ -23,9 +23,5 @@ public class IngredientsFile {
             Logger.getLogger(IngredientsFile.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public void saveToFile(Object obj) {
-    }
-    
-    
+   
 }

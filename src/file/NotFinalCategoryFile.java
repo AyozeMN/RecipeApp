@@ -10,8 +10,6 @@ import model.FinalCategory;
 import model.NotFinalCategory;
 
 public class NotFinalCategoryFile {
-    public void saveToFile(Object obj) {
-    }
 
     public void loadFromFile(ArrayList<NotFinalCategory> categories) {
         categories.clear();

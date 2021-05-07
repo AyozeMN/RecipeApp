@@ -1117,7 +1117,6 @@ public class AppForm extends javax.swing.JFrame {
                 cardLayout.show(jPanelCard, "myRecipesCard");
                 setMyRecipes();
             }
-    //        recipeFile.saveToFile(loggedUser, recipe);
             recipeFile.saveToFile(users);
         } else {
             recipeWrongLabel.setVisible(true);
@@ -1305,8 +1304,6 @@ public class AppForm extends javax.swing.JFrame {
             adminRemoveRecipeButton.setEnabled(true);
             String userNameSelected = recipesFoundList.getSelectedValue().substring(0,recipesFoundList.getSelectedValue().indexOf(":"));
             String recipeNameSelected = recipesFoundList.getSelectedValue().substring(recipesFoundList.getSelectedValue().indexOf(":")+2,recipesFoundList.getSelectedValue().indexOf(","));
-            System.out.println(userNameSelected);
-            System.out.println(recipeNameSelected);
             for (User user : users) {
                 if(user.getUserName().equals(userNameSelected)) {
                     userToRateOrRemove = user;
