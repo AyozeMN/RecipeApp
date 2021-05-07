@@ -1,6 +1,5 @@
 package gui;
 
-import file.CategoriesFile;
 import file.IngredientsFile;
 import file.NotFinalCategoryFile;
 import file.RecipeFile;
@@ -26,7 +25,6 @@ import model.User;
 public class AppForm extends javax.swing.JFrame {
 
     public IngredientsFile ingredientsFile = new IngredientsFile();
-    public CategoriesFile categoriesFile = new CategoriesFile();
     public NotFinalCategoryFile notFinalCategoryFile = new NotFinalCategoryFile();
     public RecipeFile recipeFile = new RecipeFile();
     public UsersFile usersFile = new UsersFile();
@@ -89,12 +87,7 @@ public class AppForm extends javax.swing.JFrame {
             notFinalCategoriesModel.addElement(notFinalCategory);
         }
     }
-    
-    /*private void initFinalCategoriesList(){
-        for (FinalCategory category : finalCategories) {
-            notFinalCategoriesModel.addElement(category);
-        }
-    }*/
+ 
     
     private void setMyRecipes(){
         myRecipesModel.clear();
@@ -137,7 +130,6 @@ public class AppForm extends javax.swing.JFrame {
 
         usersFile.loadFromFile(users);
         ingredientsFile.loadFromFile(ingredients);
-        categoriesFile.loadFromFile(finalCategories);
         notFinalCategoryFile.loadFromFile(notFinalCategories);
         
         this.selected = new int[notFinalCategories.size()];
@@ -1207,12 +1199,14 @@ public class AppForm extends javax.swing.JFrame {
     private void searchButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchButtonActionPerformed
         recipeFoundModel.clear();
         String recipeName = recipeNameToSearch.getText();
+            
         if(((Category) filters.getSelectedItem()) instanceof FinalCategory) {
             FinalCategory filterFC = (FinalCategory) filters.getSelectedItem();
             getRecipesByFilter(recipeName, filterFC);
         } else {
             NotFinalCategory filterNFC = (NotFinalCategory) filters.getSelectedItem();
-            getRecipesByFilter(recipeName, filterNFC);
+            if(filterNFC.getName().equals(" ")) initSearchList();
+            else getRecipesByFilter(recipeName, filterNFC);
         }
         if(recipesFoundList.isSelectionEmpty()){
             adminRemoveRecipeButton.setEnabled(false);

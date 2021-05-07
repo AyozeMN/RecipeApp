@@ -1,6 +1,5 @@
 package recipeapp;
 
-import file.CategoriesFile;
 import file.IngredientsFile;
 import file.NotFinalCategoryFile;
 import file.RecipeFile;
@@ -18,13 +17,11 @@ public class RecipeApp {
         appForm.setLocationRelativeTo(null);
         
         IngredientsFile ingredientsFile = new IngredientsFile();
-        CategoriesFile categoriesFile = new CategoriesFile();
         NotFinalCategoryFile notFinalCategoryFile = new NotFinalCategoryFile();
         UsersFile usersFile = new UsersFile();
         RecipeFile recipeFile = new RecipeFile();
         
         appForm.ingredientsFile = ingredientsFile;
-        appForm.categoriesFile = categoriesFile;
         appForm.notFinalCategoryFile = notFinalCategoryFile;
         appForm.usersFile = usersFile;
         appForm.recipeFile = recipeFile;
