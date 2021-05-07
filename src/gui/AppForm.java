@@ -841,7 +841,7 @@ public class AppForm extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ratedMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(521, Short.MAX_VALUE))
+                .addContainerGap(523, Short.MAX_VALUE))
         );
 
         jPanelCard.add(rateRecipesPanel, "rateRecipesCard");
@@ -871,6 +871,11 @@ public class AppForm extends javax.swing.JFrame {
                 .addComponent(createMenuTittleLPanelLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        myRecipesToAddToMenuList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                myRecipesToAddToMenuListMouseClicked(evt);
+            }
+        });
         myRecipesToAddToMenuScrollBar.setViewportView(myRecipesToAddToMenuList);
 
         addMenuButton.setBackground(new java.awt.Color(78, 204, 163));
@@ -1094,34 +1099,38 @@ public class AppForm extends javax.swing.JFrame {
                 
         String name = recipeNameText.getText();
         String steps = stepsTextArea.getText();
-        
         LocalTime localTime = LocalTime.of(cookTime.getHours(), cookTime.getMinutes());
-        double price = 0;
-       
+        double price = 0;       
         int[] ingredientsIndices = ingredientsList.getSelectedIndices();
+        int[] categoriesIndices = notFinalCategoriesList.getSelectedIndices();      
         
-        ArrayList<Ingredient>recipeIngredients = new ArrayList();
-        for (int ingredientsIndex : ingredientsIndices) {
-            recipeIngredients.add((Ingredient) ingredientsModel.getElementAt(ingredientsIndex));
-            price += ((Ingredient) ingredientsModel.getElementAt(ingredientsIndex)).getPrice();
+        if(!name.equals("") && !steps.equals("") && localTime.compareTo(LocalTime.parse("00:01:00"))>0 && ingredientsIndices.length>=1 && categoriesIndices.length>=1) {
+            recipeWrongLabel.setVisible(false);
+            ArrayList<Ingredient>recipeIngredients = new ArrayList();
+            for (int ingredientsIndex : ingredientsIndices) {
+                recipeIngredients.add((Ingredient) ingredientsModel.getElementAt(ingredientsIndex));
+                price += ((Ingredient) ingredientsModel.getElementAt(ingredientsIndex)).getPrice();
+            }
+
+            ArrayList<Category>recipeCategories = new ArrayList();
+            for (int categoriesIndex : categoriesIndices) {
+                recipeCategories.add((NotFinalCategory)notFinalCategoriesModel.getElementAt(categoriesIndex));
+            }
+            for (int selectedIndex : finalCategoriesList.getSelectedIndices()) {
+                recipeCategories.add((FinalCategory) finalCategoriesModel.getElementAt(selectedIndex));
+            }
+            Recipe recipe = new Recipe(name, steps, price, localTime, recipeIngredients, recipeCategories);
+            if(!loggedUser.addRecipe(recipe)) recipeWrongLabel.setVisible(true);
+            else{
+                cardLayout.show(jPanelCard, "myRecipesCard");
+                setMyRecipes();
+            }
+    //        recipeFile.saveToFile(loggedUser, recipe);
+            recipeFile.saveToFile(users);
+        } else {
+            recipeWrongLabel.setVisible(true);
+            recipeWrongLabel.setText("Recipe must be complete to be created");
         }
-        
-        int[] categoriesIndices = notFinalCategoriesList.getSelectedIndices();
-        ArrayList<Category>recipeCategories = new ArrayList();
-        for (int categoriesIndex : categoriesIndices) {
-            recipeCategories.add((NotFinalCategory)notFinalCategoriesModel.getElementAt(categoriesIndex));
-        }
-        for (int selectedIndex : finalCategoriesList.getSelectedIndices()) {
-            recipeCategories.add((FinalCategory) finalCategoriesModel.getElementAt(selectedIndex));
-        }
-        Recipe recipe = new Recipe(name, steps, price, localTime, recipeIngredients, recipeCategories);
-        if(!loggedUser.addRecipe(recipe)) recipeWrongLabel.setVisible(true);
-        else{
-            cardLayout.show(jPanelCard, "myRecipesCard");
-            setMyRecipes();
-        }
-//        recipeFile.saveToFile(loggedUser, recipe);
-        recipeFile.saveToFile(users);
         
     }//GEN-LAST:event_createRecipeActionPerformed
 
@@ -1187,6 +1196,7 @@ public class AppForm extends javax.swing.JFrame {
 
     private void myRecipesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_myRecipesButtonActionPerformed
         cardLayout.show(jPanelCard, "myRecipesCard");
+        removeRecipeButton.setEnabled(false);
     }//GEN-LAST:event_myRecipesButtonActionPerformed
 
     private void searchRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchRecipeButtonActionPerformed
@@ -1225,6 +1235,8 @@ public class AppForm extends javax.swing.JFrame {
     }
 
     private void createMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createMenuButtonActionPerformed
+        addMenuButton.setEnabled(false);
+        myRecipesToAddToMenuModel.clear();
         cardLayout.show(jPanelCard, "menuCard");
         for (Recipe recipe : loggedUser.getRecipes()) {
             myRecipesToAddToMenuModel.addElement(recipe);
@@ -1234,15 +1246,17 @@ public class AppForm extends javax.swing.JFrame {
     private void addMenuButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addMenuButtonActionPerformed
         myMenusModel.clear();
         int[] selectedIndices = myRecipesToAddToMenuList.getSelectedIndices();
-        Menu menu = new Menu(menuName.getText());
-        for (int selectedIndex : selectedIndices) {
-            Recipe recipe = (Recipe) myRecipesToAddToMenuModel.getElementAt(selectedIndex);
-            menu.addRecipesToMenu(recipe);
-        }
-        loggedUser.addMenu(menu);
-        myMenusModel.clear();
-        for (Menu userMenu : loggedUser.getMenus()) {
-            myMenusModel.addElement(userMenu);
+        if(selectedIndices.length>1) {
+            Menu menu = new Menu(menuName.getText());
+            for (int selectedIndex : selectedIndices) {
+                Recipe recipe = (Recipe) myRecipesToAddToMenuModel.getElementAt(selectedIndex);
+                menu.addRecipesToMenu(recipe);
+            }
+            loggedUser.addMenu(menu);
+            myMenusModel.clear();
+            for (Menu userMenu : loggedUser.getMenus()) {
+                myMenusModel.addElement(userMenu);
+            }
         }
         
     }//GEN-LAST:event_addMenuButtonActionPerformed
@@ -1259,6 +1273,7 @@ public class AppForm extends javax.swing.JFrame {
 
     private void resetRecipeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetRecipeActionPerformed
         clearRecipe();
+        recipeWrongLabel.setVisible(false);
     }//GEN-LAST:event_resetRecipeActionPerformed
 
     private void removeRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeRecipeButtonActionPerformed
@@ -1358,6 +1373,11 @@ public class AppForm extends javax.swing.JFrame {
         if(myRecipesList.isSelectionEmpty()) removeRecipeButton.setEnabled(false);
         else removeRecipeButton.setEnabled(true);
     }//GEN-LAST:event_myRecipesListMouseClicked
+
+    private void myRecipesToAddToMenuListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myRecipesToAddToMenuListMouseClicked
+        if(myRecipesToAddToMenuList.getSelectedIndices().length>1) addMenuButton.setEnabled(true);
+        else addMenuButton.setEnabled(false);
+    }//GEN-LAST:event_myRecipesToAddToMenuListMouseClicked
 
     private void clearRecipe() {
         recipeNameText.setText("");

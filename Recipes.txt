@@ -1,3 +1,5 @@
-Cristina:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;Italian;--Cake-Cookie-Pasta
-prueba:ads:asd:1.0:23:58:salt=1.0,:-Desert
-Carmen:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;--Cake-Cookie
+Cristina:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;Italian;------Cake-Cookie-Pasta
+prueba:ads:asd:1.0:23:58:salt=1.0,:-----Desert
+prueba:asddddddddddd:asd:1.0:00:02:sugar=1.0,:--Lunch
+prueba:ssssssssss:ssssssssssss:1.0:00:02:salt=1.0,:Lunch;Italian;--Pasta
+Carmen:dasd:asd:0.5:23:57:olive oil=0.5,:Lunch;Desert;------Cake-Cookie
