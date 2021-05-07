@@ -81,14 +81,14 @@ public abstract class User {
         return phoneNumber;
     }
     
-    public boolean rateRecipe(User user,Recipe recipe, int valoration){
-        if(getRecipe(recipe) == null){
-            if(user.getRecipe(recipe) != null){
-                user.getRecipe(recipe).setValorations(valoration);
-                return true;
-            }
+    public boolean isMyOwnRecipe(User user,Recipe recipe/*, int valoration*/){
+        if(getRecipe(recipe) == null){ //este usuario no la tiene
+            return false; //la receta no es mía
+            /*if(user.getRecipe(recipe) != null){ //el usuario a evaluar tiene esa receta
+                //user.getRecipe(recipe).setValorations(valoration);
+            }*/
         }
-        return false;
+        return true; //la receta es mía
     }
 
     

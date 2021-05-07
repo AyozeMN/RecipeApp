@@ -5,6 +5,7 @@ import file.IngredientsFile;
 import file.NotFinalCategoryFile;
 import file.RecipeFile;
 import file.UsersFile;
+import file.ValorationsFile;
 import java.awt.CardLayout;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -29,6 +30,7 @@ public class AppForm extends javax.swing.JFrame {
     public NotFinalCategoryFile notFinalCategoryFile = new NotFinalCategoryFile();
     public RecipeFile recipeFile = new RecipeFile();
     public UsersFile usersFile = new UsersFile();
+    public ValorationsFile valorationsFile = new ValorationsFile();
     
     //public ArrayList<User>users = new ArrayList();
     private User loggedUser;
@@ -60,6 +62,7 @@ public class AppForm extends javax.swing.JFrame {
     private void initSearchList(){
         recipeFoundModel.clear();
         recipeFile.loadFromFile(users);
+        valorationsFile.loadFromFile(users);
         for (User user : users) {
             for (Recipe recipe : user.getRecipes()) {
                 recipeFoundModel.addElement(user.getUserName() + ": " + recipe);
@@ -1272,10 +1275,11 @@ public class AppForm extends javax.swing.JFrame {
     }//GEN-LAST:event_removeRecipeButtonActionPerformed
 
     private void rateRecipeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rateRecipeButtonActionPerformed
-        if(loggedUser.rateRecipe(userToRateOrRemove, recipeToRateOrRemove, (int) rateValueSpinner.getValue()) == true){
+        
+        if(!loggedUser.isMyOwnRecipe(userToRateOrRemove, recipeToRateOrRemove)){
             ratedMessage.setForeground(new java.awt.Color(255, 255, 255));
             ratedMessage.setText("Recipe rated");
-
+            valorationsFile.saveToFile(recipeToRateOrRemove.getName(), userToRateOrRemove.getUserName(),(int) rateValueSpinner.getValue());
         }else{
             ratedMessage.setForeground(new java.awt.Color(255, 0, 0));
             ratedMessage.setText("It is not allowed to rate your own recipe");
